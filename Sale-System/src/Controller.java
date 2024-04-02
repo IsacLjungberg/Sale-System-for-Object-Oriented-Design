@@ -13,11 +13,21 @@ public class Controller {
     }
 
     public void scanItem(int id, int quantity){
-        currentSale.addItem(id, quantity);
+        if (quantity > 0) {
+            currentSale.addItem(id, quantity);
+        }
     }
     
-    public int finalizeSale(int amountPaid){
-        return(currentSale.getTotalCost() - amountPaid);
+    public double finalizeSale(int amountPaid){
+        currentSale.finalize(amountPaid);
+        double change = currentSale.getChange();
+        SaleDTO dto = currentSale.createSaleDTO();
+        currentSale = null;
+
+        integration.registerSale(dto);
+        printer.printReceipt(dto);
+        
+        return(change);
     }
 
     public Sale getSaleStatus(){

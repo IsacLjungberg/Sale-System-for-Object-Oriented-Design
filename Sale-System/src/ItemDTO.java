@@ -2,16 +2,16 @@ public class ItemDTO {
     private String name;
     private String description;
     private int id;
-    private int price;
-    private int vat;
+    private double price;
+    private double vatRate;
     private int quantity;
 
-    public ItemDTO(String name, String description, int id, int price, int vat, int quantity){
+    public ItemDTO(String name, String description, int id, double price, double vat, int quantity){
         this.name = name;
         this.description = description;
         this.id = id;
         this.price = price;
-        this.vat = vat;
+        this.vatRate = vat;
         this.quantity = quantity;
     }
 
@@ -27,12 +27,12 @@ public class ItemDTO {
         return id;
     }
 
-    public int getPrice(){
+    public double getPrice(){
         return price;
     }
 
-    public int getVat(){
-        return vat;
+    public double getVatRate(){
+        return vatRate;
     }
 
     public int getQuantity(){

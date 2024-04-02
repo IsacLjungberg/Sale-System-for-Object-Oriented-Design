@@ -2,25 +2,27 @@ public class Item {
     private String name;
     private String description;
     private int id;
-    private int price;
-    private int vat;
+    private double price;
+    private double vatRate;
     private int quantity;
 
+    /* 
     public Item(String name, String description, int id, int price, int vat){
         this.name = name;
         this.description = description;
         this.id = id;
         this.price = price;
-        this.vat = vat;
+        this.vatRate = vat;
         quantity = 1;
     }
+    */
 
     public Item(ItemDTO dto, int quantity){
         this.name = dto.getName();
         this.description = dto.getDescription();
         this.id = dto.getId();
         this.price = dto.getPrice();
-        this.vat = dto.getVat();
+        this.vatRate = dto.getVatRate();
         this.quantity = quantity;
     }
 
@@ -36,12 +38,12 @@ public class Item {
         return id;
     }
 
-    public int getPrice(){
+    public double getPrice(){
         return price;
     }
 
-    public int getVat() {
-        return vat;
+    public double getVatRate() {
+        return vatRate;
     }
 
     public int getQuantity() {
@@ -49,10 +51,10 @@ public class Item {
     }
 
     public ItemDTO createItemDTO(){
-        return new ItemDTO(this.name, this.description, this.id, this.price, this.vat, this.quantity);
+        return new ItemDTO(this.name, this.description, this.id, this.price, this.vatRate, this.quantity);
     }
 
-    public void changeQuantity(int quantity){
+    public void addQuantity(int quantity){
         this.quantity += quantity;
     }
 }

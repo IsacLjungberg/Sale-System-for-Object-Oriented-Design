@@ -1,14 +1,16 @@
 public class SaleDTO {
     private String dateAndTime;
-    private int totalCost;
-    private int totalPaid;
-    private int change;
+    private double totalCost;
+    private double totalPaid;
+    private double totalVat;
+    private double change;
     private ItemDTO[] itemDTOs;
 
-    public SaleDTO(String dateAndTime, int totalCost, int totalPaid, int change, ItemDTO[] itemDTOs){
+    public SaleDTO(String dateAndTime, double totalCost, double totalPaid, double totalVat, double change, ItemDTO[] itemDTOs){
         this.dateAndTime = dateAndTime;
         this.totalCost = totalCost;
         this.totalPaid = totalPaid;
+        this.totalVat = totalVat;
         this.change = change;
         this.itemDTOs = itemDTOs;
     }
@@ -17,15 +19,19 @@ public class SaleDTO {
         return dateAndTime;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public int getTotalPaid() {
+    public double getTotalPaid() {
         return totalPaid;
     }
 
-    public int getChange() {
+    public double getTotalVat(){
+        return totalVat;
+    }
+
+    public double getChange() {
         return change;
     }
 

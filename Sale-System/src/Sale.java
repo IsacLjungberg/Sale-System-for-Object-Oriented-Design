@@ -3,9 +3,10 @@ import java.util.ArrayList;
 
 public class Sale {
     private String dateAndTime;
-    private int totalCost;
-    private int totalPaid;
-    private int change;
+    private double totalCost;
+    private double totalPaid;
+    private double totalVat;
+    private double change;
     private ArrayList<Item> items;
     private Integration integration;
 
@@ -13,26 +14,39 @@ public class Sale {
         totalCost = 0;
         totalPaid = 0;
         change = 0;
-        ArrayList<Item> items = new ArrayList<Item>(); //great
+        totalVat = 0;
+        this.items = new ArrayList<Item>(); //great dog
         dateAndTime = LocalDateTime.now().toString();
         this.integration = integration;
     }
 
     public void addItem(int id, int quantity){
-        Item item = fetchFromSale(id);
+        Item item = fetchFromItemsInSale(id); 
         if(item != null){
-           item.changeQuantity(quantity); 
+           item.addQuantity(quantity); 
         } else {
             ItemDTO itemDTO = integration.fetchItem(id);
             if(itemDTO == null){
                 System.out.println("No such item");
             } else {
-                items.add(new Item(itemDTO, quantity));
+                item = new Item(itemDTO, quantity);        
+                items.add(item);
             }
+        }
+        recalculateCost();
+    }
+
+    private void recalculateCost(){
+        totalCost = 0;
+        totalVat = 0;
+
+        for(int n = 0; n < items.size(); n++){
+            totalCost += (items.get(n).getPrice() + items.get(n).getPrice() * items.get(n).getVatRate()/100) * items.get(n).getQuantity();
+            totalVat += items.get(n).getPrice() * items.get(n).getVatRate()/100 * items.get(n).getQuantity();
         }
     }
 
-    private Item fetchFromSale(int id){
+    private Item fetchFromItemsInSale(int id){ //dogname
         for(int n = 0; n < items.size(); n++){
             if(items.get(n).getId() == id){
                 return items.get(n);
@@ -49,22 +63,31 @@ public class Sale {
         }
         ItemDTO itemDTOs[] = temp.toArray(new ItemDTO[temp.size()]);
 
-        return new SaleDTO(dateAndTime, totalCost, totalPaid, change, itemDTOs);
+        return new SaleDTO(dateAndTime, totalCost, totalPaid, totalVat, change, itemDTOs);
+    }
+
+    public void finalize(int amountPaid){
+        totalPaid = amountPaid;
+        change = amountPaid - totalCost;
     }
 
     public String getDateAndTime() {
         return dateAndTime;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public int getTotalPaid() {
+    public double getTotalPaid() {
         return totalPaid;
     }
 
-    public int getChange() {
+    public double getTotalVat(){
+        return totalVat;
+    }
+
+    public double getChange() {
         return change;
     }
 
