@@ -6,7 +6,7 @@ public class Main {
         Controller controller = new Controller(integration, printer);
         View view = new View(controller);
 
-        Tests tests = new Tests(controller);
+        Tests tests = new Tests(controller, integration);
         System.out.println(tests.testAll());
         System.out.println("Allt är dit fel");
         System.out.println("Du är anledningen till att vi fick F");

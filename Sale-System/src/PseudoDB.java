@@ -7,10 +7,10 @@ public class PseudoDB{
         sales = new ArrayList<SaleDTO>();
         items = new ArrayList<ItemDTO>();
 
-        items.add(new ItemDTO("Apelsiner", "1 kilo riktigt goda apelsiner", 1, 25, 6, 1));
-        items.add(new ItemDTO("Vodka", "1 liter redig alkohol", 2, 300, 25, 1));
-        items.add(new ItemDTO("Billys", "En pan pizza", 3, 20, 12, 1));
-        items.add(new ItemDTO("Franks Blåbär", "En pan pizza", 4, 20, 6, 1));
+        items.add(new ItemDTO("Apelsiner", "1 kilo riktigt goda apelsiner", 0, 25, 6, 1));
+        items.add(new ItemDTO("Vodka", "1 liter redig alkohol", 1, 300, 25, 1));
+        items.add(new ItemDTO("Billys", "En pan pizza", 2, 20, 12, 1));
+        items.add(new ItemDTO("Franks Blåbär", "En pan pizza", 3, 20, 6, 1));
         
     }
 
