@@ -63,6 +63,7 @@ public class Tests {
         System.out.println("Price Expected: " + expectedPrice + "\nSale Price: " + controller.getSaleStatus().getTotalCost());
         boolean out = expectedPrice == controller.getSaleStatus().getTotalCost();
         controller.finalizeSale(0);
+        System.out.println("\n\nFINISHED correctPrice()\n\n");
         return out;
     }
 }
