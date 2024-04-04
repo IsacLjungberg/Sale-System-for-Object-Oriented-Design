@@ -1,8 +1,22 @@
+/**
+ * The Printer class provides functionality to print receipts for sales.
+ */
 public class Printer {
+    
+    /**
+     * Constructs a new Printer instance.
+     */
     public Printer(){
 
     }
 
+
+    /**
+     * Prints a receipt of given sale
+     * 
+     * @param saleDTO the SaleDTO object containing information about the sale
+     * @see SaleDTO
+     */
     public void printReceipt(SaleDTO saleDTO){
         System.out.println("---------------------------- Begin Receipt ----------------------------");
         System.out.println("Time of sale: " + saleDTO.getDateAndTime());
@@ -15,10 +29,10 @@ public class Printer {
             System.out.println(itemDTO.getVatRate() + " %VAT");
         }
         System.out.println();
-        System.out.println("Total: \t\t" + saleDTO.getTotalCost() + " SEK");
-        System.out.println("VAT: \t\t" + saleDTO.getTotalVat());
-        System.out.println("Cash: \t\t" + saleDTO.getTotalPaid() + " SEK");
-        System.out.println("Change: \t\t" + saleDTO.getChange() + " SEK");
+        System.out.printf("Total: \t\t%,.2f SEK\n", saleDTO.getTotalCost());
+        System.out.printf("VAT: \t\t%,.2f SEK\n",saleDTO.getTotalVat());
+        System.out.printf("Cash: \t\t%,.2f SEK\n",saleDTO.getTotalPaid());
+        System.out.printf("Change: \t%,.2f SEK\n",saleDTO.getChange());
         System.out.println("----------------------------- End Receipt -----------------------------");
     }
 }
