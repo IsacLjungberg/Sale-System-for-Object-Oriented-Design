@@ -1,3 +1,7 @@
+package view;
+
+import controller.Controller;
+
 /**
  * Hard-coded functions to run program and testing
  */

@@ -1,3 +1,4 @@
+package integration;
 /**
  * The Printer class provides functionality to print receipts for sales.
  */

@@ -1,3 +1,4 @@
+package integration;
 /**
  * The ItemDTO class represents a data transfer object for item.
  */

@@ -1,4 +1,8 @@
+package database;
 import java.util.ArrayList;
+
+import integration.ItemDTO;
+import integration.SaleDTO;
 
 /**
  * Pseudo database used to simulate real application.

@@ -1,5 +1,11 @@
+package model;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import integration.Integration;
+import integration.SaleDTO;
+import integration.ItemDTO;
 
 /**
  * Represents a sale transaction.

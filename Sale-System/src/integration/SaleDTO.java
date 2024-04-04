@@ -1,3 +1,5 @@
+package integration;
+
 /**
  * The SaleDTO class represents the data transfer object of the Sale object.
  */

@@ -1,3 +1,6 @@
+package model;
+
+import integration.ItemDTO;
 /**
  * The Item class represents an item being purchased with its attributes.
  */
@@ -15,7 +18,7 @@ public class Item {
      * @param itemDTO the ItemDTO object containing item information
      * @param quantity the quantity of the item
      */
-    public Item(ItemDTO itemDTO, int quantity){
+    Item(ItemDTO itemDTO, int quantity){
         this.name = itemDTO.getName();
         this.description = itemDTO.getDescription();
         this.id = itemDTO.getId();

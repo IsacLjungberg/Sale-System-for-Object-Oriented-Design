@@ -1,3 +1,10 @@
+package controller;
+
+import integration.Integration;
+import integration.Printer;
+import integration.SaleDTO;
+import model.Sale;
+
 /**
  * Controller class responsible for managing sale transactions.
  */

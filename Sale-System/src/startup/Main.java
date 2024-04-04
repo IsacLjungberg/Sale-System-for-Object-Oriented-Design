@@ -1,3 +1,11 @@
+package startup;
+
+import controller.Controller;
+import database.PseudoDB;
+import integration.Integration;
+import integration.Printer;
+import view.View;
+
 /**
  * Main class contains the main method to start the program.
  */
@@ -12,9 +20,5 @@ public class Main {
         Controller controller = new Controller(integration, printer);
         View view = new View(controller);
         view.runExampleFlows();
-
-        Tests tests = new Tests(/*controller, integration*/);
-
-        //System.out.println(tests.testAll());
     }
 }

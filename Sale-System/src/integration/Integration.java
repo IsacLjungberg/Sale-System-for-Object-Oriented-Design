@@ -1,3 +1,8 @@
+package integration;
+
+import database.PseudoDB;
+
+
 /**
  * Integration class responsible for communication between the application and external systems.
  */
@@ -32,10 +37,22 @@ public class Integration {
         database.saveSale(saleDTO);
     }
 
-    public SaleDTO fetchSale(int id){
-        return database.fetchSale(id);
+    /**
+     * Fetches a previous sale from the database
+     *
+     * @param index the index of the sale to fetch
+     * @return the SaleDTO object representing the fetched sale
+     */
+    public SaleDTO fetchSale(int index){
+        return database.fetchSale(index);
     }
 
+
+    /**
+     * Fetches the most recently added sale
+     *
+     * @return the SaleDTO object representing the fetched sale
+     */
     public SaleDTO fetchLatestSale(){
         return database.fetchSale(numberOfSales()-1);
     }

@@ -1,5 +1,16 @@
+package Tests;
 import java.util.ArrayList;
 import org.junit.Test;
+
+import controller.Controller;
+import database.PseudoDB;
+import integration.Integration;
+import integration.ItemDTO;
+import integration.Printer;
+import integration.SaleDTO;
+import model.Item;
+import model.Sale;
+
 import static org.junit.Assert.*;
 /**
  * Tests class for testing functionalities of all classes.
