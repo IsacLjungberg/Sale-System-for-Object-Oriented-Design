@@ -1,15 +1,19 @@
 package Tests;
 import java.util.ArrayList;
+
 import org.junit.Test;
 
 import controller.Controller;
 import database.PseudoDB;
+import integration.DatabaseNotFoundException;
 import integration.Integration;
 import integration.ItemDTO;
+import integration.ItemNotFoundException;
 import integration.Printer;
 import integration.SaleDTO;
 import model.Item;
 import model.Sale;
+import model.Logger;
 
 import static org.junit.Assert.*;
 /**
@@ -18,6 +22,7 @@ import static org.junit.Assert.*;
 public class Tests {
     private Controller controller;
     private Integration integration;
+    private Logger logger;
 
     /**
      * Constructs a Tests object with the specified Controller and Integration instances.
@@ -36,7 +41,8 @@ public class Tests {
     public Tests(){
         integration = new Integration(new PseudoDB());
         Printer printer = new Printer();
-        controller = new Controller(integration, printer);
+        logger = new Logger();
+        controller = new Controller(integration, printer, logger);
     }
 
     /**
@@ -44,7 +50,6 @@ public class Tests {
      *
      * @return a string summarizing the test results
      */
-
     /* 
     public String testAll(){
         ArrayList<Boolean> out = new ArrayList<Boolean>();
@@ -88,7 +93,7 @@ public class Tests {
      */
     
     @Test
-    public void correctPrice(){
+    public void correctPrice() throws DatabaseNotFoundException, ItemNotFoundException{
         controller.startSale();
 
         int[] quantityOfItem = {3, 6, 1, 0}; 
@@ -140,7 +145,7 @@ public class Tests {
      * @return true if the test passes, false otherwise
      */
     @Test
-    public void unit_scanItem(){
+    public void unit_scanItem() throws DatabaseNotFoundException, ItemNotFoundException{
         controller.startSale();
 
         int[] itemIds = {1, 0, 3};
@@ -220,8 +225,8 @@ public class Tests {
      */
 
      @Test
-    public void unit_addItem(){
-        Sale sale = new Sale(integration);
+    public void unit_addItem() throws DatabaseNotFoundException, ItemNotFoundException{
+        Sale sale = new Sale(integration, logger);
         int itemId = 1;
         
         ItemDTO itemDTO = integration.fetchItem(itemId);
@@ -324,6 +329,16 @@ public class Tests {
 
         //return out;
         assertEquals("No Works", true, out);
+    }
+
+    @Test(expected = ItemNotFoundException.class)
+    public void unit_ItemNotFound() throws DatabaseNotFoundException, ItemNotFoundException{
+        integration.fetchItem(5);
+    }
+
+    @Test(expected = DatabaseNotFoundException.class)
+    public void unit_DatabaseNotFound() throws DatabaseNotFoundException, ItemNotFoundException{
+        integration.fetchItem(404);
     }
 }
 

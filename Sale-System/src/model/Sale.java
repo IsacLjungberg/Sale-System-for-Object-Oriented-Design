@@ -3,9 +3,11 @@ package model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import integration.DatabaseNotFoundException;
 import integration.Integration;
 import integration.SaleDTO;
 import integration.ItemDTO;
+import integration.ItemNotFoundException;
 
 /**
  * Represents a sale transaction.
@@ -18,13 +20,14 @@ public class Sale {
     private double change;
     private ArrayList<Item> items;
     private Integration integration;
+    private Logger logger;
 
     /**
      * Constructs a Sale object with an integration instance.
      *
      * @param integration the integration instance to be used
      */
-    public Sale(Integration integration){
+    public Sale(Integration integration, Logger logger){
         totalCost = 0;
         totalPaid = 0;
         change = 0;
@@ -32,6 +35,7 @@ public class Sale {
         dateAndTime = "NULL";
         items = new ArrayList<Item>();
         this.integration = integration;
+        this.logger = logger;
     }
 
     /**
@@ -43,19 +47,23 @@ public class Sale {
      * @param quantity the quantity of the item to be added
      */
     public void addItem(int id, int quantity){
-        Item item = fetchFromItemsInSale(id);
-        if(item != null){
-            item.addQuantity(quantity);
-        } else {
-            ItemDTO itemDTO = integration.fetchItem(id);
-            if(itemDTO == null){
-                System.out.println("No such item");
+        try{
+            Item item = fetchFromItemsInSale(id);
+            if(item != null){
+                item.addQuantity(quantity);
             } else {
+                ItemDTO itemDTO = integration.fetchItem(id);
                 item = new Item(itemDTO, quantity);
                 items.add(item);
             }
+            recalculateCost();
+        } catch (ItemNotFoundException exception){
+            System.out.println("No such item");
+            logger.logMessage("No such item");
+        } catch (DatabaseNotFoundException exception){
+            System.out.println("Database not found");
+            logger.logMessage("Database not found");
         }
-        recalculateCost();
     }
 
     // Recalculates the total cost and total VAT of the sale based on its items.

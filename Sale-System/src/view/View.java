@@ -53,6 +53,8 @@ public class View{
         controller.scanItem(1, 3);
         controller.scanItem(0, 1);
         controller.scanItem(3, 0);
+        controller.scanItem(404, 1);
+        controller.scanItem(100, 1);
         controller.finalizeSale(2000);
     }
 }

@@ -4,6 +4,7 @@ import integration.Integration;
 import integration.Printer;
 import integration.SaleDTO;
 import model.Sale;
+import model.Logger;
 
 /**
  * Controller class responsible for managing sale transactions.
@@ -12,6 +13,7 @@ public class Controller {
     private Integration integration;
     private Printer printer;
     private Sale currentSale;
+    private Logger logger;
         
     /**
      * Constructs a Controller object with the specified Integration and Printer instances.
@@ -19,16 +21,17 @@ public class Controller {
      * @param integration the integration instance for communication with external systems
      * @param printer the printer instance for printing receipts
      */
-    public Controller(Integration integration, Printer printer){
+    public Controller(Integration integration, Printer printer, Logger logger){
         this.integration = integration;
         this.printer = printer;
+        this.logger = logger;
     }
 
     /**
      * Starts a new sale transaction by initializing a new Sale object.
      */
     public void startSale(){
-        currentSale = new Sale(integration);
+        currentSale = new Sale(integration, logger);
     }
 
     /**

@@ -23,9 +23,20 @@ public class Integration {
      *
      * @param id the ID of the item to fetch
      * @return the ItemDTO object representing the fetched item
+     * 
+     * @exception DatabaseNotFoundException if database can not be reached, here only for a specific item ID
+     * @exception ItemNotFoundException if item ID matches item in database 
      */
-    public ItemDTO fetchItem(int id){
-        return database.fetchItem(id);
+    public ItemDTO fetchItem(int id) throws ItemNotFoundException, DatabaseNotFoundException{
+        if(id == 404){
+            throw new DatabaseNotFoundException("Database could not be reached");
+        }
+        ItemDTO out = database.fetchItem(id);
+        if(out == null){
+            throw new ItemNotFoundException("Item could not be found in Item database");
+        } else {
+            return out;
+        }
     }
 
     /**

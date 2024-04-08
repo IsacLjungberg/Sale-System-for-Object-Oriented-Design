@@ -5,6 +5,7 @@ import database.PseudoDB;
 import integration.Integration;
 import integration.Printer;
 import view.View;
+import model.Logger;
 
 /**
  * Main class contains the main method to start the program.
@@ -17,7 +18,8 @@ public class Main {
 
         Integration integration = new Integration(new PseudoDB());
         Printer printer = new Printer();
-        Controller controller = new Controller(integration, printer);
+        Logger logger = new Logger();
+        Controller controller = new Controller(integration, printer, logger);
         View view = new View(controller);
         view.runExampleFlows();
     }
