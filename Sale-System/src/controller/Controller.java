@@ -3,8 +3,9 @@ package controller;
 import integration.Integration;
 import integration.Printer;
 import integration.SaleDTO;
+import integration.Discount;
 import model.Sale;
-import model.Logger;
+import model.ExceptionFileOutput;
 
 /**
  * Controller class responsible for managing sale transactions.
@@ -13,7 +14,7 @@ public class Controller {
     private Integration integration;
     private Printer printer;
     private Sale currentSale;
-    private Logger logger;
+    private ExceptionFileOutput exceptionLogger;
         
     /**
      * Constructs a Controller object with the specified Integration and Printer instances.
@@ -21,17 +22,17 @@ public class Controller {
      * @param integration the integration instance for communication with external systems
      * @param printer the printer instance for printing receipts
      */
-    public Controller(Integration integration, Printer printer, Logger logger){
+    public Controller(Integration integration, Printer printer, ExceptionFileOutput exceptionLogger){
         this.integration = integration;
         this.printer = printer;
-        this.logger = logger;
+        this.exceptionLogger = exceptionLogger;
     }
 
     /**
      * Starts a new sale transaction by initializing a new Sale object.
      */
     public void startSale(){
-        currentSale = new Sale(integration, logger);
+        currentSale = new Sale(integration, exceptionLogger);
     }
 
     /**
@@ -45,6 +46,15 @@ public class Controller {
             currentSale.addItem(id, quantity);
         }
     }
+
+    public void endCurrentSale(){
+        currentSale.endSale();
+    }
+
+    public void discountCurrentSale(int id){
+        Discount[] discounts = integration.fetchDiscounts(id);
+        currentSale.discountSale(discounts);
+    }
     
     /**
      * Finalizes the current sale transaction by setting the amount paid, creating a SaleDTO, registering the sale,
@@ -53,12 +63,14 @@ public class Controller {
      * @param amountPaid the amount paid by the customer
      */
     public void finalizeSale(int amountPaid){
-        currentSale.finalize(amountPaid);
-        SaleDTO saleDTO = currentSale.createSaleDTO();
-        currentSale = null;
-
-        integration.registerSale(saleDTO);
-        printer.printReceipt(saleDTO);
+        if(currentSale.getSaleEnded()){
+            currentSale.finalize(amountPaid);
+            SaleDTO saleDTO = currentSale.createSaleDTO();
+            currentSale = null;
+            
+            printer.printReceipt(saleDTO);
+            integration.registerSale(saleDTO);
+        }
     }
     
     /**

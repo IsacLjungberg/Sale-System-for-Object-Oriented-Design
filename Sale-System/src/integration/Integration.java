@@ -1,13 +1,16 @@
 package integration;
 
+import java.util.ArrayList;
 import database.PseudoDB;
 
 
 /**
  * Integration class responsible for communication between the application and external systems.
  */
-public class Integration {
+public class Integration{
     private PseudoDB database;
+    private double allSalesCost;
+    private ArrayList<Observer> observers;
 
     /**
      * Constructs an Integration object with the specified PseudoDB instance.
@@ -16,6 +19,7 @@ public class Integration {
      */
     public Integration(PseudoDB database){
         this.database = database;
+        observers = new ArrayList<Observer>();
     }
 
     /**
@@ -46,6 +50,18 @@ public class Integration {
      */
     public void registerSale(SaleDTO saleDTO){
         database.saveSale(saleDTO);
+        allSalesCost += saleDTO.getTotalCost();
+        notifyObservers();
+    }
+    
+    private void notifyObservers(){
+        for(Observer obs : observers){
+            obs.update(allSalesCost);
+        }
+    }
+
+    public void addObeserver(Observer obs){
+        observers.add(obs);
     }
 
     /**
@@ -70,5 +86,9 @@ public class Integration {
 
     private int numberOfSales(){
         return database.getSales().size();
+    }
+
+    public Discount[] fetchDiscounts(int id){
+        return database.fetchDiscounts(id);
     }
 }

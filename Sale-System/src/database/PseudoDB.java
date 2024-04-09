@@ -3,27 +3,47 @@ import java.util.ArrayList;
 
 import integration.ItemDTO;
 import integration.SaleDTO;
+import integration.AmountDiscount;
+import integration.PercentDiscount;
+import integration.Discount;
 
 /**
  * Pseudo database used to simulate real application.
  */
 public class PseudoDB{
+
+    private static PseudoDB instance;
+
     private ArrayList<SaleDTO> sales;
     private ArrayList<ItemDTO> items;
+    private ArrayList<Discount> discounts;
 
     /** 
      * Constructs a new instance of PseudoDB, initializing the sales and items lists.
      * Also populates the items list with sample ItemDTO objects.
      */
-    public PseudoDB(){
+    private PseudoDB(){
         sales = new ArrayList<SaleDTO>();
         items = new ArrayList<ItemDTO>();
+        discounts = new ArrayList<Discount>();
 
         items.add(new ItemDTO("Test", "Item för tester", 0, 10, 1, 0));
         items.add(new ItemDTO("Apelsiner", "1 kilo riktigt goda apelsiner", 1, 25, 6, 0));
         items.add(new ItemDTO("Vodka", "1 liter redig alkohol", 2, 300, 25, 0));
         items.add(new ItemDTO("Billys", "En pan pizza", 3, 20, 12, 0));
         items.add(new ItemDTO("Franks Blåbär", "Franks med blåbärs smak", 4, 20, 6, 0));
+
+        discounts.add(new AmountDiscount(1, 3));
+        int[] customerIds = {1};
+        discounts.add(new PercentDiscount(customerIds, 50));
+    }
+
+    public static PseudoDB getInstance(){
+        if (instance == null) {
+            instance = new PseudoDB();
+        }
+
+        return instance;
     }
 
     /**
@@ -71,6 +91,20 @@ public class PseudoDB{
      */
     public void saveItem(ItemDTO itemDTO){
         items.add(itemDTO);
+    }
+
+    public Discount[] fetchDiscounts(int id){
+        ArrayList<Discount> currentDiscounts = new ArrayList<Discount>();
+        for(int n = 0; n < discounts.size(); n++){
+            if(discounts.get(n).appliesTo(id)){
+                currentDiscounts.add(discounts.get(n));
+            }
+        }
+
+        Discount[] currentDiscountsArray = new Discount[currentDiscounts.size()];
+        currentDiscounts.toArray(currentDiscountsArray);
+
+        return currentDiscountsArray;
     }
 
     /**

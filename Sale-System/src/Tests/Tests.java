@@ -1,4 +1,5 @@
 package Tests;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -13,7 +14,7 @@ import integration.Printer;
 import integration.SaleDTO;
 import model.Item;
 import model.Sale;
-import model.Logger;
+import model.ExceptionFileOutput;
 
 import static org.junit.Assert.*;
 /**
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 public class Tests {
     private Controller controller;
     private Integration integration;
-    private Logger logger;
+    private ExceptionFileOutput exceptionLogger;
 
     /**
      * Constructs a Tests object with the specified Controller and Integration instances.
@@ -39,10 +40,10 @@ public class Tests {
     */
 
     public Tests(){
-        integration = new Integration(new PseudoDB());
+        integration = new Integration(PseudoDB.getInstance());
         Printer printer = new Printer();
-        logger = new Logger();
-        controller = new Controller(integration, printer, logger);
+        exceptionLogger = new ExceptionFileOutput();
+        controller = new Controller(integration, printer, exceptionLogger);
     }
 
     /**
@@ -213,6 +214,7 @@ public class Tests {
     public void unit_finalizeSale(){
         controller.startSale();
         controller.scanItem(0, 1);
+        controller.endCurrentSale();
         controller.finalizeSale(11);
         
         assertEquals("Current sale not emptied meaning finalize sale failed", null, controller.getCurrentSale());
@@ -226,7 +228,7 @@ public class Tests {
 
      @Test
     public void unit_addItem() throws DatabaseNotFoundException, ItemNotFoundException{
-        Sale sale = new Sale(integration, logger);
+        Sale sale = new Sale(integration, exceptionLogger);
         int itemId = 1;
         
         ItemDTO itemDTO = integration.fetchItem(itemId);
@@ -339,6 +341,26 @@ public class Tests {
     @Test(expected = DatabaseNotFoundException.class)
     public void unit_DatabaseNotFound() throws DatabaseNotFoundException, ItemNotFoundException{
         integration.fetchItem(404);
+    }
+
+    @Test
+    public void unit_Discounts(){
+        controller.startSale();
+        controller.scanItem(1, 3);
+        controller.scanItem(2, 1);
+        controller.endCurrentSale();
+
+        System.out.println("Pre Discount Cost: " + controller.getCurrentSale().getTotalCost());
+        controller.discountCurrentSale(1);
+
+        boolean out = false;
+
+        System.out.println("Discounted Cost: " + controller.getCurrentSale().getTotalCost());
+
+        if(controller.getCurrentSale().getTotalCost() == 214){
+            out = true;
+        }
+        assertEquals(out, true);
     }
 }
 

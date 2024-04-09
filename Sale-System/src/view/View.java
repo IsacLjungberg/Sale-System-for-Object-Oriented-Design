@@ -42,6 +42,7 @@ public class View{
         controller.scanItem(2, 1);
         controller.scanItem(2, 1);
         controller.scanItem(3, 20);
+        controller.endCurrentSale();
         controller.finalizeSale(2000);
     }
 
@@ -55,6 +56,7 @@ public class View{
         controller.scanItem(3, 0);
         controller.scanItem(404, 1);
         controller.scanItem(100, 1);
+        controller.endCurrentSale();
         controller.finalizeSale(2000);
     }
 }

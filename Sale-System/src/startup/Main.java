@@ -1,11 +1,13 @@
 package startup;
 
-import controller.Controller;
-import database.PseudoDB;
-import integration.Integration;
-import integration.Printer;
-import view.View;
-import model.Logger;
+import static org.junit.Assert.fail;
+
+import controller.*;
+import database.*;
+import integration.*;
+import view.*;
+import model.*;
+import Tests.Tests;
 
 /**
  * Main class contains the main method to start the program.
@@ -16,11 +18,21 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
 
-        Integration integration = new Integration(new PseudoDB());
+        Integration integration = new Integration(PseudoDB.getInstance());
         Printer printer = new Printer();
-        Logger logger = new Logger();
-        Controller controller = new Controller(integration, printer, logger);
+        ExceptionFileOutput exceptionLogger = new ExceptionFileOutput();
+        TotalRevenueFileOutput revenueLogger = new TotalRevenueFileOutput();
+        Controller controller = new Controller(integration, printer, exceptionLogger);
         View view = new View(controller);
+        TotalRevenueView totalRevView = new TotalRevenueView();
+
+        integration.addObeserver(totalRevView);
+        integration.addObeserver(revenueLogger);
+
         view.runExampleFlows();
+
+        Tests tests = new Tests();
+        tests.unit_Discounts();
+
     }
 }

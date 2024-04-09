@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import integration.DatabaseNotFoundException;
+import integration.Discount;
 import integration.Integration;
 import integration.SaleDTO;
 import integration.ItemDTO;
@@ -19,23 +20,27 @@ public class Sale {
     private double totalVat;
     private double change;
     private ArrayList<Item> items;
+    private ItemDTO[] itemsFinal;
+    private boolean saleEnded;
     private Integration integration;
-    private Logger logger;
+    private ExceptionFileOutput exceptionLogger;
 
     /**
      * Constructs a Sale object with an integration instance.
      *
      * @param integration the integration instance to be used
      */
-    public Sale(Integration integration, Logger logger){
+    public Sale(Integration integration, ExceptionFileOutput exceptionLogger){
         totalCost = 0;
         totalPaid = 0;
         change = 0;
         totalVat = 0;
         dateAndTime = "NULL";
         items = new ArrayList<Item>();
+        itemsFinal = null;
+        saleEnded = false;
         this.integration = integration;
-        this.logger = logger;
+        this.exceptionLogger = exceptionLogger;
     }
 
     /**
@@ -59,10 +64,10 @@ public class Sale {
             recalculateCost();
         } catch (ItemNotFoundException exception){
             System.out.println("No such item");
-            logger.logMessage("No such item");
+            exceptionLogger.logMessage("No such item");
         } catch (DatabaseNotFoundException exception){
             System.out.println("Database not found");
-            logger.logMessage("Database not found");
+            exceptionLogger.logMessage("Database not found");
         }
     }
 
@@ -93,14 +98,27 @@ public class Sale {
      * @return the SaleDTO object representing the sale
      */
     public SaleDTO createSaleDTO(){
-        ArrayList<ItemDTO> temp = new ArrayList<>();
+        return new SaleDTO(dateAndTime, totalCost, totalPaid, totalVat, change, itemsFinal);
+    }
 
-        for (int i = 0; i < items.size(); i++) {
-            temp.add(items.get(i).createItemDTO());
+    /**
+     * Ends the sale, preventing the addition of new item and readying the sale for
+     * the application of discounts
+     *
+     */
+    public void endSale(){
+        itemsFinal = new ItemDTO[items.size()];
+        for(int n = 0; n < items.size(); n++){
+            itemsFinal[n] = items.get(n).createItemDTO();
         }
-        ItemDTO itemDTOs[] = temp.toArray(new ItemDTO[temp.size()]);
+        items = null;
+        saleEnded = false;
+    }
 
-        return new SaleDTO(dateAndTime, totalCost, totalPaid, totalVat, change, itemDTOs);
+    public void discountSale(Discount[] discounts){
+        for(int n = 0; n < discounts.length; n++){
+            totalCost = discounts[n].discount(itemsFinal, totalCost);
+        }
     }
 
     /**
@@ -154,5 +172,9 @@ public class Sale {
      */
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public boolean getSaleEnded(){
+        return saleEnded;
     }
 }
