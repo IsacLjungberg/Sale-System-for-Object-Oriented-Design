@@ -20,7 +20,7 @@ public class Logger {
         }
     }
 
-    public void log(String message) {
+    public void logMessage(String message) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         writer.println("[" + timeStamp + "] " + message);
     }
