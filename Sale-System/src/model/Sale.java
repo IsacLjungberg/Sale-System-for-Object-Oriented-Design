@@ -63,11 +63,11 @@ public class Sale {
             }
             recalculateCost();
         } catch (ItemNotFoundException exception){
-            System.out.println("No such item");
-            exceptionLogger.logMessage("No such item");
+            System.out.println(exception.getMessage());
+            exceptionLogger.logMessage(exception.getMessage());
         } catch (DatabaseNotFoundException exception){
-            System.out.println("Database not found");
-            exceptionLogger.logMessage("Database not found");
+            System.out.println(exception.getMessage());
+            exceptionLogger.logMessage(exception.getMessage());
         }
     }
 
@@ -112,9 +112,14 @@ public class Sale {
             itemsFinal[n] = items.get(n).createItemDTO();
         }
         items = null;
-        saleEnded = false;
+        saleEnded = true;
     }
 
+    /**
+     * Adjusts the total cost of sale by calculating the new total with the passed discounts.
+     * 
+     * @param discounts Array with discounts used for calculating new total
+     */
     public void discountSale(Discount[] discounts){
         for(int n = 0; n < discounts.length; n++){
             totalCost = discounts[n].discount(itemsFinal, totalCost);
@@ -174,6 +179,9 @@ public class Sale {
         return items;
     }
 
+    /**
+     * @return boolean representing if the sale has been ended
+     */
     public boolean getSaleEnded(){
         return saleEnded;
     }

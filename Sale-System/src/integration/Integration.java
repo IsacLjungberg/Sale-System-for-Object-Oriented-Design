@@ -54,12 +54,20 @@ public class Integration{
         notifyObservers();
     }
     
+    /**
+     * Updates all observers with the new total amount calculated from all purchases during program runtime.
+     */
     private void notifyObservers(){
         for(Observer obs : observers){
             obs.update(allSalesCost);
         }
     }
 
+    /**
+     * Adds new observers to the list of observers.
+     * 
+     * @param obs The observer to be added
+     */
     public void addObeserver(Observer obs){
         observers.add(obs);
     }
@@ -78,17 +86,28 @@ public class Integration{
     /**
      * Fetches the most recently added sale
      *
-     * @return the SaleDTO object representing the fetched sale
+     * @return The SaleDTO object representing the fetched sale
      */
     public SaleDTO fetchLatestSale(){
         return database.fetchSale(numberOfSales()-1);
     }
 
+    /**
+     * Gives the amount of sales conduted since program start.
+     * 
+     * @return An int representing the amount of sales
+     */
     private int numberOfSales(){
         return database.getSales().size();
     }
 
-    public Discount[] fetchDiscounts(int id){
-        return database.fetchDiscounts(id);
+    /**
+     * Fetches eligible discounts using a passed customer ID.
+     * 
+     * @param customerId int representing the customers ID
+     * @return An discount array with all eligible discounts
+     */
+    public Discount[] fetchDiscounts(int customerId){
+        return database.fetchDiscounts(customerId);
     }
 }

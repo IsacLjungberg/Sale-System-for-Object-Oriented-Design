@@ -14,6 +14,7 @@ import integration.Printer;
 import integration.SaleDTO;
 import model.Item;
 import model.Sale;
+import model.SaleStateException;
 import model.ExceptionFileOutput;
 
 import static org.junit.Assert.*;
@@ -42,7 +43,7 @@ public class Tests {
     public Tests(){
         integration = new Integration(PseudoDB.getInstance());
         Printer printer = new Printer();
-        exceptionLogger = new ExceptionFileOutput();
+        exceptionLogger = ExceptionFileOutput.getInstance();
         controller = new Controller(integration, printer, exceptionLogger);
     }
 
@@ -94,7 +95,7 @@ public class Tests {
      */
     
     @Test
-    public void correctPrice() throws DatabaseNotFoundException, ItemNotFoundException{
+    public void correctPrice() throws DatabaseNotFoundException, ItemNotFoundException, SaleStateException{
         controller.startSale();
 
         int[] quantityOfItem = {3, 6, 1, 0}; 
@@ -114,7 +115,7 @@ public class Tests {
         boolean out = expectedPrice == controller.getCurrentSale().getTotalCost();
         controller.finalizeSale(0);
         //return out;
-        assertEquals("Works", true, out);
+        assertEquals("No Works", true, out);
     }
 
     /**
@@ -211,7 +212,7 @@ public class Tests {
      * @return true if the test passes, false otherwise
      */
     @Test
-    public void unit_finalizeSale(){
+    public void unit_finalizeSale() throws SaleStateException{
         controller.startSale();
         controller.scanItem(0, 1);
         controller.endCurrentSale();
@@ -270,7 +271,7 @@ public class Tests {
      */
     
     @Test
-    public void unit_registerSale(){
+    public void unit_registerSale() throws SaleStateException{
         controller.startSale();
         controller.scanItem(0, 3);
         controller.scanItem(1, 1);
@@ -286,6 +287,7 @@ public class Tests {
             itemDTOs[n] = itemsArrayList.get(n).createItemDTO();
         }
 
+        controller.endCurrentSale();
         controller.finalizeSale(100);
 
         String dateAndTime = sale.getDateAndTime();

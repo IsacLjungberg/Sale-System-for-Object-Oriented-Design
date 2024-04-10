@@ -38,6 +38,11 @@ public class PseudoDB{
         discounts.add(new PercentDiscount(customerIds, 50));
     }
 
+    /**
+     * Getter for database instance, creates a new one if it has not been created yet.
+     * 
+     * @return The programs database
+     */
     public static PseudoDB getInstance(){
         if (instance == null) {
             instance = new PseudoDB();
@@ -58,6 +63,11 @@ public class PseudoDB{
         }
     }
 
+    /**
+     * Fetches a previous sale from the sales database using a provided index.
+     * 
+     * @param index
+     */
     public SaleDTO fetchSale(int index){
         return sales.get(index);
     }
@@ -96,7 +106,7 @@ public class PseudoDB{
     public Discount[] fetchDiscounts(int id){
         ArrayList<Discount> currentDiscounts = new ArrayList<Discount>();
         for(int n = 0; n < discounts.size(); n++){
-            if(discounts.get(n).appliesTo(id)){
+            if(discounts.get(n).appliesToCustomer(id)){
                 currentDiscounts.add(discounts.get(n));
             }
         }

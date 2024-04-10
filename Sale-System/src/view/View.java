@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import model.SaleStateException;
 
 /**
  * Hard-coded functions to run program and testing
@@ -22,7 +23,7 @@ public class View{
      * Runs a predefined set of example flows
      */
 
-    public void runExampleFlows(){
+    public void runExampleFlows() {
         firstExampleFlow();
         secondExampleFlow();
     }
@@ -31,7 +32,7 @@ public class View{
     /**
      * Example flow where a sale is started, several items are scanned, and the sale is finalized
      */
-    public void firstExampleFlow(){
+    public void firstExampleFlow() {
         controller.startSale();
         controller.scanItem(0, 1);
         controller.scanItem(1, 1);
@@ -43,13 +44,18 @@ public class View{
         controller.scanItem(2, 1);
         controller.scanItem(3, 20);
         controller.endCurrentSale();
-        controller.finalizeSale(2000);
+        try {
+            controller.finalizeSale(2000);
+        } catch (SaleStateException e) {
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     /**
      * Example flow where a sale is started, several items are scanned, and the sale is finalized
      */
-    public void secondExampleFlow(){
+    public void secondExampleFlow() {
         controller.startSale();
         controller.scanItem(1, 3);
         controller.scanItem(0, 1);
@@ -57,6 +63,10 @@ public class View{
         controller.scanItem(404, 1);
         controller.scanItem(100, 1);
         controller.endCurrentSale();
-        controller.finalizeSale(2000);
+        try {
+            controller.finalizeSale(2000);
+        } catch (SaleStateException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

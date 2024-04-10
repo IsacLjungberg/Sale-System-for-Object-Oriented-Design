@@ -5,6 +5,7 @@ import integration.Printer;
 import integration.SaleDTO;
 import integration.Discount;
 import model.Sale;
+import model.SaleStateException;
 import model.ExceptionFileOutput;
 
 /**
@@ -47,12 +48,20 @@ public class Controller {
         }
     }
 
+    /**
+     * Ends the current sale.
+     */
     public void endCurrentSale(){
         currentSale.endSale();
     }
 
-    public void discountCurrentSale(int id){
-        Discount[] discounts = integration.fetchDiscounts(id);
+    /**
+     * Fetches all discounts that the customer is eligible for and applies them on the current sale.
+     * 
+     * @param customerId An int representing the customers ID
+     */
+    public void discountCurrentSale(int customerId){
+        Discount[] discounts = integration.fetchDiscounts(customerId);
         currentSale.discountSale(discounts);
     }
     
@@ -61,8 +70,9 @@ public class Controller {
      * printing the receipt, and resetting the current sale.
      *
      * @param amountPaid the amount paid by the customer
+     * @throws SaleEndedException 
      */
-    public void finalizeSale(int amountPaid){
+    public void finalizeSale(int amountPaid) throws SaleStateException{
         if(currentSale.getSaleEnded()){
             currentSale.finalize(amountPaid);
             SaleDTO saleDTO = currentSale.createSaleDTO();
@@ -70,6 +80,8 @@ public class Controller {
             
             printer.printReceipt(saleDTO);
             integration.registerSale(saleDTO);
+        } else {
+            throw new SaleStateException("Sale was finalized before it was ended");
         }
     }
     

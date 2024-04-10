@@ -16,12 +16,12 @@ public class Main {
     /**
      * Main method acts as startup by initalizing necessary classes.
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Integration integration = new Integration(PseudoDB.getInstance());
         Printer printer = new Printer();
-        ExceptionFileOutput exceptionLogger = new ExceptionFileOutput();
-        TotalRevenueFileOutput revenueLogger = new TotalRevenueFileOutput();
+        ExceptionFileOutput exceptionLogger = ExceptionFileOutput.getInstance();
+        TotalRevenueFileOutput revenueLogger = TotalRevenueFileOutput.getInstance();
         Controller controller = new Controller(integration, printer, exceptionLogger);
         View view = new View(controller);
         TotalRevenueView totalRevView = new TotalRevenueView();
