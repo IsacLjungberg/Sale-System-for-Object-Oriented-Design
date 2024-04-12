@@ -113,6 +113,7 @@ public class Tests {
         }
 
         boolean out = expectedPrice == controller.getCurrentSale().getTotalCost();
+        controller.endCurrentSale();
         controller.finalizeSale(0);
         //return out;
         assertEquals("No Works", true, out);
