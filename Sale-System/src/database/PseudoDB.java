@@ -19,11 +19,11 @@ public class PseudoDB{
         sales = new ArrayList<SaleDTO>();
         items = new ArrayList<ItemDTO>();
 
-        items.add(new ItemDTO("Test", "Item för tester", 0, 10, 1, 0));
+        items.add(new ItemDTO("Mjölk", "1 liter mjölk", 0, 10, 6, 10));
         items.add(new ItemDTO("Apelsiner", "1 kilo riktigt goda apelsiner", 1, 25, 6, 0));
-        items.add(new ItemDTO("Vodka", "1 liter redig alkohol", 2, 300, 25, 0));
-        items.add(new ItemDTO("Billys", "En pan pizza", 3, 20, 12, 0));
-        items.add(new ItemDTO("Franks Blåbär", "Franks med blåbärs smak", 4, 20, 6, 0));
+        items.add(new ItemDTO("Vodka", "1 liter sprit", 2, 300, 25, 0));
+        items.add(new ItemDTO("Billys", "1 pan pizza", 3, 20, 12, 0));
+        items.add(new ItemDTO("Franks Blueberry", "Franks energidryck med blåbärs smak", 4, 20, 6, 0));
     }
 
     /**

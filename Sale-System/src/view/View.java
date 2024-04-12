@@ -41,7 +41,7 @@ public class View{
         controller.scanItem(2, 1);
         controller.scanItem(2, 1);
         controller.scanItem(2, 1);
-        controller.scanItem(3, 20);
+        controller.scanItem(3, 1);
         controller.finalizeSale(2000);
     }
 
