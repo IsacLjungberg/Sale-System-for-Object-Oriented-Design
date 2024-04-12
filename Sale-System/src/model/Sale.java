@@ -58,7 +58,9 @@ public class Sale {
         recalculateCost();
     }
 
-    // Recalculates the total cost and total VAT of the sale based on its items.
+    /**
+     * Recalculates total cost and total vat of the sale based on its items
+     */
     private void recalculateCost(){
         totalCost = 0;
         totalVat = 0;
@@ -69,7 +71,12 @@ public class Sale {
         }
     }
 
-    //Fetches an item from the sale items list based on its id.
+    /**
+     * fetches an item from a sale if one exists with a matching id
+     * 
+     * @param id the id of the item to fetch
+     * @return the item if it exists, and null if no match exists in the sale
+     */
     private Item fetchFromItemsInSale(int id){
         for(int n = 0; n < items.size(); n++){
             if(items.get(n).getId() == id){

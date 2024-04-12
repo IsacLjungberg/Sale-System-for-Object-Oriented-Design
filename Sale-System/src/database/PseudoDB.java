@@ -38,11 +38,15 @@ public class PseudoDB{
         }
     }
 
+    /**
+     * Fetches a sale DTO representing a previous sale
+     * 
+     * @param index representing the sale
+     */
     public SaleDTO fetchSale(int index){
         return sales.get(index);
     }
 
-    // Updates the quantity of an item in the database
     private void updateItemQuantity(int id, int amount){
         ItemDTO item = items.get(id);
         items.remove(id);
