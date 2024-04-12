@@ -1,10 +1,10 @@
-package startup;
+package sut.startup;
 
-import controller.Controller;
-import database.PseudoDB;
-import integration.Integration;
-import integration.Printer;
-import view.View;
+import sut.controller.Controller;
+import sut.database.PseudoDB;
+import sut.integration.Integration;
+import sut.integration.Printer;
+import sut.view.View;
 
 /**
  * Main class contains the main method to start the program.

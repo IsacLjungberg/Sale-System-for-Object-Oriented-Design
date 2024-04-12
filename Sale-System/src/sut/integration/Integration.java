@@ -1,6 +1,6 @@
-package integration;
+package sut.integration;
 
-import database.PseudoDB;
+import sut.database.PseudoDB;
 
 
 /**

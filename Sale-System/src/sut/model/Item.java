@@ -1,6 +1,6 @@
-package model;
+package sut.model;
 
-import integration.ItemDTO;
+import sut.integration.ItemDTO;
 /**
  * The Item class represents an item being purchased with its attributes.
  */

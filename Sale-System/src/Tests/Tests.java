@@ -2,14 +2,14 @@ package Tests;
 import java.util.ArrayList;
 import org.junit.Test;
 
-import controller.Controller;
-import database.PseudoDB;
-import integration.Integration;
-import integration.ItemDTO;
-import integration.Printer;
-import integration.SaleDTO;
-import model.Item;
-import model.Sale;
+import sut.controller.Controller;
+import sut.database.PseudoDB;
+import sut.integration.Integration;
+import sut.integration.ItemDTO;
+import sut.integration.Printer;
+import sut.integration.SaleDTO;
+import sut.model.Item;
+import sut.model.Sale;
 
 import static org.junit.Assert.*;
 /**
