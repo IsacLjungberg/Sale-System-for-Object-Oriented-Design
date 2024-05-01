@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import sut.integration.Integration;
-import sut.integration.SaleDTO;
 import sut.integration.ItemDTO;
+import sut.integration.SaleDTO;
 
 /**
  * Represents a sale transaction.

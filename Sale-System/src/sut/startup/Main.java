@@ -14,7 +14,6 @@ public class Main {
      * Main method acts as startup by initalizing necessary classes.
      */
     public static void main(String[] args) throws Exception {
-
         Integration integration = new Integration(new PseudoDB());
         Printer printer = new Printer();
         Controller controller = new Controller(integration, printer);
