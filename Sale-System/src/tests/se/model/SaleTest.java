@@ -31,19 +31,23 @@ public class SaleTest {
     @Test
     public void addItemTest(){
         sale.addItem(1, 1);
+        sale.addItem(1, 1);
         sale.addItem(3, 2);
+        sale.addItem(100, 1);
         
-        boolean testBool = sale.getTotalCost() == 71.3;
+        boolean testBool = sale.getTotalCost() == 97.8;
         assertEquals("Add item does not correctly increase cost", true, testBool);
     }
     
     @Test
     public void createSaleDTOTest(){
         sale.addItem(1, 1);
+        sale.addItem(1, 1);
         sale.addItem(3, 2);
+        sale.addItem(100, 1);
 
         SaleDTO dto = sale.createSaleDTO();
-        boolean testBool = dto.getTotalCost() == 71.3;
+        boolean testBool = dto.getTotalCost() == 97.8;
         
         assertEquals("The saleDTO is created incorrectly", true, testBool);
     }
@@ -51,11 +55,13 @@ public class SaleTest {
     @Test
     public void finalizeTest(){
         sale.addItem(1, 1);
+        sale.addItem(1, 1);
         sale.addItem(3, 2);
+        sale.addItem(100, 1);
 
-        sale.finalize(80);
+        sale.finalize(100);
 
-        boolean testBool = (sale.getTotalPaid() == 80 && sale.getChange() == (80 - 71.3));
+        boolean testBool = (sale.getTotalPaid() == 100 && sale.getChange() == (100 - 97.8));
 
         assertEquals("Finalize records incorrect amount paid or calculates change incorrectly" + sale.getChange() + "test", true, testBool);
     }
