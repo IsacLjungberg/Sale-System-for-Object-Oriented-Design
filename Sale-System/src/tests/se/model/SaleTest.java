@@ -1,13 +1,12 @@
-package tests.model;
+package se.model;
 
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import sut.database.PseudoDB;
-import sut.integration.Integration;
-import sut.integration.SaleDTO;
-import sut.model.Sale;
+import se.database.PseudoDB;
+import se.integration.Integration;
+import se.integration.SaleDTO;
 
 import static org.junit.Assert.*;
 

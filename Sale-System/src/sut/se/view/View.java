@@ -1,6 +1,6 @@
-package sut.view;
+package se.view;
 
-import sut.controller.Controller;
+import se.controller.Controller;
 
 /**
  * Hard-coded functions to run program and testing

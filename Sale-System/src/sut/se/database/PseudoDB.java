@@ -1,8 +1,8 @@
-package sut.database;
+package se.database;
 import java.util.ArrayList;
 
-import sut.integration.ItemDTO;
-import sut.integration.SaleDTO;
+import se.integration.ItemDTO;
+import se.integration.SaleDTO;
 
 /**
  * Pseudo database used to simulate real application.

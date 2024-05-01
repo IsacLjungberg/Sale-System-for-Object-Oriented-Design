@@ -1,4 +1,4 @@
-package sut.integration;
+package se.integration;
 /**
  * The ItemDTO class represents a data transfer object for item.
  */

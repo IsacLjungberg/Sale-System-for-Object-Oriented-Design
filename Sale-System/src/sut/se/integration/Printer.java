@@ -1,4 +1,4 @@
-package sut.integration;
+package se.integration;
 /**
  * The Printer class provides functionality to print receipts for sales.
  */

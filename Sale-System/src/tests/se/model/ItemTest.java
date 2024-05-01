@@ -1,12 +1,12 @@
-package tests.model;
+package se.model;
 
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import sut.database.PseudoDB;
-import sut.integration.Integration;
-import sut.model.Item;
+import se.database.PseudoDB;
+import se.integration.Integration;
+import se.integration.ItemDTO;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +31,10 @@ public class ItemTest {
     @Test
     public void createItemDTOTest(){
         ItemDTO testItemDTO = item.createItemDTO();
+
+        boolean testBool = (testItemDTO.getId() == item.getId() && testItemDTO.getName() == item.getName() && testItemDTO.getPrice() == item.getPrice() && testItemDTO.getQuantity() == item.getQuantity() && testItemDTO.getVatRate() == item.getVatRate() && testItemDTO.getDescription() == item.getDescription() && testItemDTO.getDescription() == item.getDescription());
+
+        assertEquals("Creating the item DTO failed or the DTO contains incorrect information", true, testBool);
     }
     
     @Test

@@ -1,9 +1,9 @@
-package sut.controller;
+package se.controller;
 
-import sut.integration.Integration;
-import sut.integration.Printer;
-import sut.integration.SaleDTO;
-import sut.model.Sale;
+import se.integration.Integration;
+import se.integration.Printer;
+import se.integration.SaleDTO;
+import se.model.Sale;
 
 /**
  * Controller class responsible for managing sale transactions.

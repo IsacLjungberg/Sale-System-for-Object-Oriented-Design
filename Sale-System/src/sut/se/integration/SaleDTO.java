@@ -1,4 +1,4 @@
-package sut.integration;
+package se.integration;
 
 /**
  * The SaleDTO class represents the data transfer object of the Sale object.
