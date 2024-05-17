@@ -1,4 +1,4 @@
-package integration;
+package se.kth.salesystem.integration;
 
 /**
  * Discount handling for percentage based discounts.

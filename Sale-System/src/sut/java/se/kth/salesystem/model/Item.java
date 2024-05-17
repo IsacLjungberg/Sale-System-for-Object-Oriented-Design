@@ -1,4 +1,4 @@
-package model;
+package se.kth.salesystem.model;
 
 import integration.ItemDTO;
 /**

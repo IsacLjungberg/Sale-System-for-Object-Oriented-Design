@@ -1,4 +1,4 @@
-package integration;
+package se.kth.salesystem.integration;
 
 /**
  * Exception thrown to indicate a database not being found.

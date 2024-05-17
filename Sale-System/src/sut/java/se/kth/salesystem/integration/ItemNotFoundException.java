@@ -1,5 +1,4 @@
-
-package integration;
+package se.kth.salesystem.integration;
 
 /**
  * Exception thrown to indicate a Item not being found.

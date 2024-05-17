@@ -1,4 +1,4 @@
-package model;
+package se.kth.salesystem.model;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import integration.Observer;
+
 
 /**
  * The TotalRevenueFileOutput class is responsible for logging the total revenue to a file.

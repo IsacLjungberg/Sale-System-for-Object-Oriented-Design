@@ -1,13 +1,12 @@
-package integration;
+package se.kth.salesystem.integration;
 
-import java.util.ArrayList;
-import database.PseudoDB;
+import se.kth.salesystem.database.PseudoDB;
 
 
 /**
  * Integration class responsible for communication between the application and external systems.
  */
-public class Integration{
+public class DBHandler{
     private PseudoDB database;
     private double allSalesCost;
     private ArrayList<Observer> observers;
@@ -17,7 +16,7 @@ public class Integration{
      *
      * @param database the pseudo database for integration
      */
-    public Integration(PseudoDB database){
+    public DBHandler(PseudoDB database){
         this.database = database;
         observers = new ArrayList<Observer>();
     }

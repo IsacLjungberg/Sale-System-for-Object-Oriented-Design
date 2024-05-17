@@ -1,4 +1,4 @@
-package model;
+package se.kth.salesystem.model;
 
 /**
  * Exception thworn if the state of the sale blocks program functionality.

@@ -1,5 +1,4 @@
-package integration;
-/**
+package se.kth.salesystem.integration;/**
  * The ItemDTO class represents a data transfer object for item.
  */
 public class ItemDTO {

@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "Sale-System/src",
-        ""
+        "",
+        "src\\sut\\java",
+        "src\\test\\java"
     ]
 }
