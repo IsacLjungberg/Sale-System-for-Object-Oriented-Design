@@ -1,10 +1,10 @@
-package se.startup;
+package se.kth.salesystem.startup;
 
-import se.controller.Controller;
-import se.database.PseudoDB;
-import se.integration.Integration;
-import se.integration.Printer;
-import se.view.View;
+import se.kth.salesystem.controller.Controller;
+import se.kth.salesystem.database.PseudoDB;
+import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.Printer;
+import se.kth.salesystem.view.View;
 
 /**
  * Main class contains the main method to start the program.

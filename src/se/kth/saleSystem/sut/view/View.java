@@ -1,6 +1,6 @@
-package se.view;
+package se.kth.salesystem.view;
 
-import se.controller.Controller;
+import se.kth.salesystem.controller.Controller;
 
 /**
  * Hard-coded functions to run program and testing

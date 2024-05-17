@@ -1,10 +1,10 @@
-package se.integration;
+package se.kth.salesystem.integration;
 
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import se.database.PseudoDB;
+import se.kth.salesystem.database.PseudoDB;
 
 import static org.junit.Assert.*;
 

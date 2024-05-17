@@ -1,12 +1,12 @@
-package se.model;
+package se.kth.salesystem.model;
 
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import se.database.PseudoDB;
-import se.integration.Integration;
-import se.integration.ItemDTO;
+import se.kth.salesystem.database.PseudoDB;
+import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.ItemDTO;
 
 import static org.junit.Assert.*;
 

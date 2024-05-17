@@ -1,11 +1,11 @@
-package se.model;
+package se.kth.salesystem.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import se.integration.Integration;
-import se.integration.ItemDTO;
-import se.integration.SaleDTO;
+import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.ItemDTO;
+import se.kth.salesystem.integration.SaleDTO;
 
 /**
  * Represents a sale transaction.

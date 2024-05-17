@@ -1,8 +1,8 @@
-package se.database;
+package se.kth.salesystem.database;
 import java.util.ArrayList;
 
-import se.integration.ItemDTO;
-import se.integration.SaleDTO;
+import se.kth.salesystem.integration.ItemDTO;
+import se.kth.salesystem.integration.SaleDTO;
 
 /**
  * Pseudo database used to simulate real application.

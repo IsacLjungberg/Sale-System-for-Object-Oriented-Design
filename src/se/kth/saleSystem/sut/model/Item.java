@@ -1,6 +1,6 @@
-package se.model;
+package se.kth.salesystem.model;
 
-import se.integration.ItemDTO;
+import se.kth.salesystem.integration.ItemDTO;
 /**
  * The Item class represents an item being purchased with its attributes.
  */

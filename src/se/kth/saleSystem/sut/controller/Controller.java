@@ -1,9 +1,9 @@
-package se.controller;
+package se.kth.salesystem.controller;
 
-import se.integration.Integration;
-import se.integration.Printer;
-import se.integration.SaleDTO;
-import se.model.Sale;
+import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.Printer;
+import se.kth.salesystem.integration.SaleDTO;
+import se.kth.salesystem.model.Sale;
 
 /**
  * Controller class responsible for managing sale transactions.

@@ -1,6 +1,6 @@
-package se.integration;
+package se.kth.salesystem.integration;
 
-import se.database.PseudoDB;
+import se.kth.salesystem.database.PseudoDB;
 
 
 /**

@@ -1,14 +1,14 @@
-package se.controller;
+package se.kth.salesystem.controller;
 
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import se.database.PseudoDB;
-import se.integration.Integration;
-import se.integration.Printer;
-import se.integration.SaleDTO;
-import se.view.View;
+import se.kth.salesystem.database.PseudoDB;
+import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.Printer;
+import se.kth.salesystem.integration.SaleDTO;
+import se.kth.salesystem.view.View;
 
 import static org.junit.Assert.*;
 
