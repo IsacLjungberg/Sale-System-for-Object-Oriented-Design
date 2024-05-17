@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-
 public class ControllerTest {
 
     PseudoDB db;
@@ -39,16 +38,16 @@ public class ControllerTest {
         controller = null;
         view = null;
     }
-    
+
     @Test
-    public void startSaleTest(){
+    public void startSaleTest() {
         controller.startSale();
         boolean testBool = controller.getCurrentSale() != null;
         assertEquals("Start sale failed to initialise a sale", true, testBool);
     }
 
     @Test
-    public void scanItemTest(){
+    public void scanItemTest() {
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -60,7 +59,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void finalizeSaleTest(){
+    public void finalizeSaleTest() {
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -76,11 +75,11 @@ public class ControllerTest {
     }
 
     @Test
-    public void resetSaleTest(){
+    public void resetSaleTest() {
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
-        
+
         controller.resetSale();
 
         boolean testBool = controller.getCurrentSale() == null;

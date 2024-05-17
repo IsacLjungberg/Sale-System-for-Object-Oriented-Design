@@ -24,7 +24,7 @@ public class Sale {
      *
      * @param integration the integration instance to be used
      */
-    public Sale(Integration integration){
+    public Sale(Integration integration) {
         totalCost = 0;
         totalPaid = 0;
         change = 0;
@@ -37,18 +37,19 @@ public class Sale {
     /**
      * Adds an item to the sale with the given id and quantity.
      * If the item is already present in the sale, increases its quantity.
-     * If the item is not present, fetches it from integration and adds it to the sale.
+     * If the item is not present, fetches it from integration and adds it to the
+     * sale.
      *
-     * @param id the id of the item to be added
+     * @param id       the id of the item to be added
      * @param quantity the quantity of the item to be added
      */
-    public void addItem(int id, int quantity){
+    public void addItem(int id, int quantity) {
         Item item = fetchFromItemsInSale(id);
-        if(item != null){
+        if (item != null) {
             item.addQuantity(quantity);
         } else {
             ItemDTO itemDTO = integration.fetchItem(id);
-            if(itemDTO == null){
+            if (itemDTO == null) {
                 System.out.println("No such item");
             } else {
                 item = new Item(itemDTO, quantity);
@@ -61,13 +62,14 @@ public class Sale {
     /**
      * Recalculates total cost and total vat of the sale based on its items
      */
-    private void recalculateCost(){
+    private void recalculateCost() {
         totalCost = 0;
         totalVat = 0;
 
-        for(int n = 0; n < items.size(); n++){
-            totalCost += (items.get(n).getPrice() + items.get(n).getPrice() * items.get(n).getVatRate()/100) * items.get(n).getQuantity();
-            totalVat += items.get(n).getPrice() * items.get(n).getVatRate()/100 * items.get(n).getQuantity();
+        for (int n = 0; n < items.size(); n++) {
+            totalCost += (items.get(n).getPrice() + items.get(n).getPrice() * items.get(n).getVatRate() / 100)
+                    * items.get(n).getQuantity();
+            totalVat += items.get(n).getPrice() * items.get(n).getVatRate() / 100 * items.get(n).getQuantity();
         }
     }
 
@@ -77,9 +79,9 @@ public class Sale {
      * @param id the id of the item to fetch
      * @return the item if it exists, and null if no match exists in the sale
      */
-    private Item fetchFromItemsInSale(int id){
-        for(int n = 0; n < items.size(); n++){
-            if(items.get(n).getId() == id){
+    private Item fetchFromItemsInSale(int id) {
+        for (int n = 0; n < items.size(); n++) {
+            if (items.get(n).getId() == id) {
                 return items.get(n);
             }
         }
@@ -91,7 +93,7 @@ public class Sale {
      *
      * @return the SaleDTO object representing the sale
      */
-    public SaleDTO createSaleDTO(){
+    public SaleDTO createSaleDTO() {
         ArrayList<ItemDTO> temp = new ArrayList<>();
 
         for (int i = 0; i < items.size(); i++) {
@@ -107,7 +109,7 @@ public class Sale {
      *
      * @param amountPaid the amount paid by the customer
      */
-    public void finalize(int amountPaid){
+    public void finalize(int amountPaid) {
         dateAndTime = LocalDateTime.now().toString();
         totalPaid = amountPaid;
         change = amountPaid - totalCost;
@@ -137,7 +139,7 @@ public class Sale {
     /**
      * @return the total VAT amount
      */
-    public double getTotalVat(){
+    public double getTotalVat() {
         return totalVat;
     }
 

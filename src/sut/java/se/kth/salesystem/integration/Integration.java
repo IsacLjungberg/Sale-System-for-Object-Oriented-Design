@@ -2,9 +2,9 @@ package se.kth.salesystem.integration;
 
 import se.kth.salesystem.database.PseudoDB;
 
-
 /**
- * Integration class responsible for communication between the application and external systems.
+ * Integration class responsible for communication between the application and
+ * external systems.
  */
 public class Integration {
     private PseudoDB database;
@@ -14,7 +14,7 @@ public class Integration {
      *
      * @param database the pseudo database for integration
      */
-    public Integration(PseudoDB database){
+    public Integration(PseudoDB database) {
         this.database = database;
     }
 
@@ -24,7 +24,7 @@ public class Integration {
      * @param id the ID of the item to fetch
      * @return the ItemDTO object representing the fetched item
      */
-    public ItemDTO fetchItem(int id){
+    public ItemDTO fetchItem(int id) {
         return database.fetchItem(id);
     }
 
@@ -33,7 +33,7 @@ public class Integration {
      *
      * @param saleDTO the SaleDTO object representing the sale to be registered
      */
-    public void registerSale(SaleDTO saleDTO){
+    public void registerSale(SaleDTO saleDTO) {
         database.saveSale(saleDTO);
     }
 
@@ -43,21 +43,20 @@ public class Integration {
      * @param index the index of the sale to fetch
      * @return the SaleDTO object representing the fetched sale
      */
-    public SaleDTO fetchSale(int index){
+    public SaleDTO fetchSale(int index) {
         return database.fetchSale(index);
     }
-
 
     /**
      * Fetches the most recently added sale
      *
      * @return the SaleDTO object representing the fetched sale
      */
-    public SaleDTO fetchLatestSale(){
-        return database.fetchSale(numberOfSales()-1);
+    public SaleDTO fetchLatestSale() {
+        return database.fetchSale(numberOfSales() - 1);
     }
 
-    private int numberOfSales(){
+    private int numberOfSales() {
         return database.getSales().size();
     }
 }

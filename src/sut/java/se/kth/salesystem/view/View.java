@@ -6,7 +6,7 @@ import se.kth.salesystem.controller.Controller;
  * Hard-coded functions to run program and testing
  */
 
-public class View{
+public class View {
     Controller controller;
 
     /**
@@ -14,7 +14,7 @@ public class View{
      * 
      * @param controller to make calls to
      */
-    public View(Controller controller){
+    public View(Controller controller) {
         this.controller = controller;
     }
 
@@ -22,16 +22,16 @@ public class View{
      * Runs a predefined set of example flows
      */
 
-    public void runExampleFlows(){
+    public void runExampleFlows() {
         firstExampleFlow();
         secondExampleFlow();
     }
 
-
     /**
-     * Example flow where a sale is started, several items are scanned, and the sale is finalized
+     * Example flow where a sale is started, several items are scanned, and the sale
+     * is finalized
      */
-    public void firstExampleFlow(){
+    public void firstExampleFlow() {
         controller.startSale();
         controller.scanItem(0, 1);
         controller.scanItem(1, 1);
@@ -46,9 +46,10 @@ public class View{
     }
 
     /**
-     * Example flow where a sale is started, several items are scanned, and the sale is finalized
+     * Example flow where a sale is started, several items are scanned, and the sale
+     * is finalized
      */
-    public void secondExampleFlow(){
+    public void secondExampleFlow() {
         controller.startSale();
         controller.scanItem(1, 3);
         controller.scanItem(0, 1);
