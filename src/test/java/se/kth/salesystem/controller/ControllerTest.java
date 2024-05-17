@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import se.kth.salesystem.database.PseudoDB;
-import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.DBHandler;
 import se.kth.salesystem.integration.Printer;
 import se.kth.salesystem.integration.SaleDTO;
 import se.kth.salesystem.view.View;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ControllerTest {
 
     PseudoDB db;
-    Integration integration;
+    DBHandler integration;
     Printer printer;
     Controller controller;
     View view;
@@ -25,7 +25,7 @@ public class ControllerTest {
     @Before
     public void setUp() {
         db = new PseudoDB();
-        integration = new Integration(db);
+        integration = new DBHandler(db);
         printer = new Printer();
         controller = new Controller(integration, printer);
         view = new View(controller);
@@ -42,7 +42,7 @@ public class ControllerTest {
     @Test
     public void startSaleTest() {
         controller.startSale();
-        boolean testBool = controller.getCurrentSale() != null;
+        boolean testBool = controller.fetchCurrentSaleDTO() != null;
         assertEquals("Start sale failed to initialise a sale", true, testBool);
     }
 
@@ -53,7 +53,7 @@ public class ControllerTest {
         controller.scanItem(0, 2);
         controller.scanItem(3, 0);
 
-        boolean testBool = controller.getCurrentSale().getTotalCost() == 396.2;
+        boolean testBool = controller.fetchCurrentSaleDTO().getTotalCost() == 396.2;
 
         assertEquals("Price of sale was not updated in accordance with added items", true, testBool);
     }
@@ -82,7 +82,7 @@ public class ControllerTest {
 
         controller.resetSale();
 
-        boolean testBool = controller.getCurrentSale() == null;
+        boolean testBool = controller.fetchCurrentSaleDTO() == null;
 
         assertEquals("Current sale not nullified after reset", true, testBool);
     }

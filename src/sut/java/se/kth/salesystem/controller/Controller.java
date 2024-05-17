@@ -1,6 +1,6 @@
 package se.kth.salesystem.controller;
 
-import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.DBHandler;
 import se.kth.salesystem.integration.Printer;
 import se.kth.salesystem.integration.SaleDTO;
 import se.kth.salesystem.model.Sale;
@@ -9,7 +9,7 @@ import se.kth.salesystem.model.Sale;
  * Controller class responsible for managing sale transactions.
  */
 public class Controller {
-    private Integration integration;
+    private DBHandler integration;
     private Printer printer;
     private Sale currentSale;
 
@@ -21,7 +21,7 @@ public class Controller {
      *                    systems
      * @param printer     the printer instance for printing receipts
      */
-    public Controller(Integration integration, Printer printer) {
+    public Controller(DBHandler integration, Printer printer) {
         this.integration = integration;
         this.printer = printer;
     }
@@ -38,10 +38,26 @@ public class Controller {
      * 
      * @param id       the ID of the item to be scanned
      * @param quantity the quantity of the item to be added
+     * @return SaleDTO representing the current sale
      */
-    public void scanItem(int id, int quantity) {
+    public SaleDTO scanItem(int id, int quantity) {
         if (quantity > 0) {
             currentSale.addItem(id, quantity);
+        }
+
+        return fetchCurrentSaleDTO();
+    }
+
+    /**
+     * Converts the current sale to a SaleDTO object.
+     * 
+     * @return a SaleDTO object representing the current state of the sale
+     */
+    public SaleDTO fetchCurrentSaleDTO() {
+        if(currentSale != null){
+            return currentSale.createSaleDTO();
+        } else {
+            return null;
         }
     }
 
@@ -66,12 +82,5 @@ public class Controller {
      */
     public void resetSale() {
         currentSale = null;
-    }
-
-    /**
-     * @return the current sale
-     */
-    public Sale getCurrentSale() {
-        return currentSale;
     }
 }

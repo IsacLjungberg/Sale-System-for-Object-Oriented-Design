@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import se.kth.salesystem.database.PseudoDB;
-import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.DBHandler;
 import se.kth.salesystem.integration.ItemDTO;
 
 import static org.junit.Assert.*;
@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
 public class ItemTest {
     
     PseudoDB db;
-    Integration integration;
+    DBHandler integration;
     Item item;
 
     @Before
     public void setUp(){
         db = new PseudoDB();
-        integration = new Integration(db);
+        integration = new DBHandler(db);
         item = new Item(integration.fetchItem(0), 1);
     }
 

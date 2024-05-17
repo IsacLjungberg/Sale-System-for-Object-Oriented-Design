@@ -5,20 +5,20 @@ import org.junit.After;
 import org.junit.Test;
 
 import se.kth.salesystem.database.PseudoDB;
-import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.DBHandler;
 import se.kth.salesystem.integration.SaleDTO;
 
 import static org.junit.Assert.*;
 
 public class SaleTest {
     PseudoDB db;
-    Integration integration;
+    DBHandler integration;
     Sale sale;
 
     @Before
     public void setUp() {
         db = new PseudoDB();
-        integration = new Integration(db);
+        integration = new DBHandler(db);
         sale = new Sale(integration);
     }
 

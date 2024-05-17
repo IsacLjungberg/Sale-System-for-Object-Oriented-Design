@@ -6,7 +6,7 @@ import se.kth.salesystem.database.PseudoDB;
  * Integration class responsible for communication between the application and
  * external systems.
  */
-public class Integration {
+public class DBHandler {
     private PseudoDB database;
 
     /**
@@ -14,7 +14,7 @@ public class Integration {
      *
      * @param database the pseudo database for integration
      */
-    public Integration(PseudoDB database) {
+    public DBHandler(PseudoDB database) {
         this.database = database;
     }
 

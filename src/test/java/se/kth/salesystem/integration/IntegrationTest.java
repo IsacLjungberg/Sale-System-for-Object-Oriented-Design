@@ -11,12 +11,12 @@ import static org.junit.Assert.*;
 public class IntegrationTest {
 
     PseudoDB db;
-    Integration integration;
+    DBHandler integration;
 
     @Before
     public void setUp(){
         db = new PseudoDB();
-        integration = new Integration(db);
+        integration = new DBHandler(db);
     }
 
     @After

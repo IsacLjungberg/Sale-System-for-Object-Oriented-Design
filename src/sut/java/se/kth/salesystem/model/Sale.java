@@ -3,7 +3,7 @@ package se.kth.salesystem.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import se.kth.salesystem.integration.Integration;
+import se.kth.salesystem.integration.DBHandler;
 import se.kth.salesystem.integration.ItemDTO;
 import se.kth.salesystem.integration.SaleDTO;
 
@@ -17,14 +17,14 @@ public class Sale {
     private double totalVat;
     private double change;
     private ArrayList<Item> items;
-    private Integration integration;
+    private DBHandler integration;
 
     /**
      * Constructs a Sale object with an integration instance.
      *
      * @param integration the integration instance to be used
      */
-    public Sale(Integration integration) {
+    public Sale(DBHandler integration) {
         totalCost = 0;
         totalPaid = 0;
         change = 0;
