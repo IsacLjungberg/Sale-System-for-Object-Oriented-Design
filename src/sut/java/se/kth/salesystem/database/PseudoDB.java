@@ -79,7 +79,7 @@ public class PseudoDB {
     }
 
     // Updates the quantity of an item in the database
-    private void updateItemQuantity(int id, int amount) {
+    public void updateItemQuantity(int id, int amount) {
         ItemDTO item = items.get(id);
         items.remove(id);
         items.add(id, new ItemDTO(item.getName(), item.getDescription(), item.getId(), item.getPrice(),

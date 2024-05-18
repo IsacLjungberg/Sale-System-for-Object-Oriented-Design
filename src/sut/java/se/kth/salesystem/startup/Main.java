@@ -28,8 +28,8 @@ public class Main {
         View view = new View(controller);
         TotalRevenueView totalRevView = new TotalRevenueView();
 
-        dbHandler.addObeserver(totalRevView);
-        dbHandler.addObeserver(revenueLogger);
+        dbHandler.addObserver(totalRevView);
+        dbHandler.addObserver(revenueLogger);
 
         view.runExampleFlows();
     }

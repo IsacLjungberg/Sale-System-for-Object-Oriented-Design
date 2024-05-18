@@ -45,13 +45,22 @@ public class Controller {
      * @param id       the ID of the item to be scanned
      * @param quantity the quantity of the item to be added
      * @return SaleDTO representing the current sale
+     * @throws SaleStateException 
      */
-    public SaleDTO scanItem(int id, int quantity) {
-        if (quantity > 0) {
-            currentSale.addItem(id, quantity);
+    public SaleDTO scanItem(int id, int quantity) throws SaleStateException {
+        if(currentSale != null){
+            if(!currentSale.getSaleEnded()){
+                if (quantity > 0) {
+                    currentSale.addItem(id, quantity);
+                }
+        
+                return fetchCurrentSaleDTO();
+            } else {
+                throw new SaleStateException("Attempting to add item to finished sale");
+            }
+        } else {
+            throw new SaleStateException("Attempting to add item to non existant sale");
         }
-
-        return fetchCurrentSaleDTO();
     }
 
     /**

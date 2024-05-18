@@ -51,7 +51,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void scanItemTest() {
+    public void scanItemTest() throws SaleStateException{
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -80,7 +80,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void resetSaleTest() {
+    public void resetSaleTest() throws SaleStateException{
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -91,4 +91,49 @@ public class ControllerTest {
 
         assertEquals("Current sale not nullified after reset", true, testBool);
     }
+
+    @Test(expected = SaleStateException.class)
+    public void finalizeUnendedSaleTest() throws SaleStateException{
+        controller.startSale();
+        controller.scanItem(0, 1);
+        controller.finalizeSale(100);
+        assertFalse("Did not throw SaleStateException", true);
+    }
+
+    @Test(expected = SaleStateException.class)
+    public void addingItemToEndedSale() throws SaleStateException{
+        controller.startSale();
+        controller.endCurrentSale();
+        controller.scanItem(0, 1);
+        assertFalse("Did not throw SaleStateException", true);
+    }
+
+    @Test(expected = SaleStateException.class)
+    public void addingItemToNonStartedSale() throws SaleStateException{
+        controller.scanItem(0, 1);
+        assertFalse("Did not throw SaleStateException", true);
+    }
+
+    @Test
+    public void exceptionLoggerSingeltonTest(){
+        ExceptionFileOutput temp = ExceptionFileOutput.getInstance();
+        assertEquals(("The exception logger has two different instances"), temp, exceptionLogger);
+    }
+
+    @Test
+    public void discountTest() throws SaleStateException{
+        controller.startSale();
+        controller.scanItem(0, 1);
+        controller.scanItem(1, 3);
+        controller.scanItem(2, 1);
+
+        controller.endCurrentSale();
+        controller.discountCurrentSale(1);
+        controller.finalizeSale(1000);
+        
+        double totalCost = dbHandler.fetchLatestSale().getTotalCost();
+        boolean testBool = totalCost == (465.1 - 25 * 1.06) * 0.5;
+        assertTrue("Price is not right after discount, price after is " + totalCost, testBool);
+    }
+    
 }

@@ -19,6 +19,7 @@ public class DBHandler{
      */
     public DBHandler(PseudoDB database){
         this.database = database;
+        allSalesCost = 0;
         observers = new ArrayList<Observer>();
     }
 
@@ -29,7 +30,7 @@ public class DBHandler{
      * @return the ItemDTO object representing the fetched item
      * 
      * @throws DatabaseNotFoundException if database can not be reached, here only for a specific item ID
-     * @throws ItemNotFoundException if item ID matches item in database 
+     * @throws ItemNotFoundException if item ID matches item in database
      */
     public ItemDTO fetchItem(int id) throws ItemNotFoundException, DatabaseNotFoundException{
         if(id == 404){
@@ -68,7 +69,7 @@ public class DBHandler{
      * 
      * @param obs The observer to be added
      */
-    public void addObeserver(Observer obs){
+    public void addObserver(Observer obs){
         observers.add(obs);
     }
 

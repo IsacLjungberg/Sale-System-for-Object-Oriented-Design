@@ -68,4 +68,6 @@ public class SaleTest {
                 "Finalize records incorrect amount paid or calculates change incorrectly" + sale.getChange() + "test",
                 true, testBool);
     }
+
+    
 }

@@ -33,18 +33,18 @@ public class View{
      * Example flow where a sale is started, several items are scanned, and the sale is finalized
      */
     public void firstExampleFlow() {
-        controller.startSale();
-        controller.scanItem(0, 1);
-        controller.scanItem(1, 1);
-        controller.scanItem(1, 1);
-        controller.scanItem(2, 1);
-        controller.scanItem(2, 1);
-        controller.scanItem(2, 1);
-        controller.scanItem(2, 1);
-        controller.scanItem(2, 1);
-        controller.scanItem(3, 20);
-        controller.endCurrentSale();
         try {
+            controller.startSale();
+            controller.scanItem(0, 1);
+            controller.scanItem(1, 1);
+            controller.scanItem(1, 1);
+            controller.scanItem(2, 1);
+            controller.scanItem(2, 1);
+            controller.scanItem(2, 1);
+            controller.scanItem(2, 1);
+            controller.scanItem(2, 1);
+            controller.scanItem(3, 20);
+            controller.endCurrentSale();
             controller.finalizeSale(2000);
         } catch (SaleStateException e) {
             System.out.println(e.getMessage());
@@ -56,14 +56,14 @@ public class View{
      * Example flow where a sale is started, several items are scanned, and the sale is finalized
      */
     public void secondExampleFlow() {
-        controller.startSale();
-        controller.scanItem(1, 3);
-        controller.scanItem(0, 1);
-        controller.scanItem(3, 0);
-        controller.scanItem(404, 1);
-        controller.scanItem(100, 1);
-        controller.endCurrentSale();
         try {
+            controller.startSale();
+            controller.scanItem(1, 3);
+            controller.scanItem(0, 1);
+            controller.scanItem(3, 0);
+            controller.scanItem(404, 1);
+            controller.scanItem(100, 1);
+            controller.endCurrentSale();
             controller.finalizeSale(2000);
         } catch (SaleStateException e) {
             System.out.println(e.getMessage());

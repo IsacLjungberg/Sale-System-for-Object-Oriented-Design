@@ -5,10 +5,14 @@ import org.junit.After;
 import org.junit.Test;
 
 import se.kth.salesystem.database.PseudoDB;
+import se.kth.salesystem.model.TotalRevenueFileOutput;
 
 import static org.junit.Assert.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class IntegrationTest {
+public class DBHandlerTest {
 
     PseudoDB db;
     DBHandler dbHandler;
@@ -79,4 +83,42 @@ public class IntegrationTest {
 
     }
 
+    @Test
+    public void addObserverTest() {
+        TotalRevenueFileOutput obs = TotalRevenueFileOutput.getInstance();
+        dbHandler.addObserver(obs);
+        
+        ItemDTO itemDTO = db.fetchItem(0);
+        ItemDTO[] itemDTOArr = new ItemDTO[] { itemDTO };
+        SaleDTO saleDTO = new SaleDTO("Test Date", 1, 1, 1, 0, itemDTOArr);
+        dbHandler.registerSale(saleDTO);
+
+        boolean testBool = false;
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("Revenue_log.txt"))) {
+            //String line;
+            line = br.readLine();
+            line = line.substring(line.indexOf("]") + 2);
+            System.out.println(line);
+            if (line.equals("Total revenue: 1.0")) {
+                testBool = true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals("Observe does not write to file correctly", true, testBool);
+    }
+
+    @Test(expected = DatabaseNotFoundException.class)
+    public void DatabaseNotFoundExceptionTest() throws ItemNotFoundException, DatabaseNotFoundException {
+        dbHandler.fetchItem(404);
+        assertFalse("Did not throw DatabaseNotFoundException", true);
+    }
+
+    @Test(expected = ItemNotFoundException.class)
+    public void itemNotFoundExceptionTest() throws ItemNotFoundException, DatabaseNotFoundException {
+        dbHandler.fetchItem(68);
+        assertFalse("Did not throw ItemNotFoundException", true);
+    }
 }
