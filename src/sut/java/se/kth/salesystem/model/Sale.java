@@ -23,7 +23,6 @@ public class Sale {
     private ItemDTO[] itemsFinal;
     private boolean saleEnded;
     private DBHandler dbHandler;
-    private ExceptionFileOutput exceptionLogger;
 
     /**
      * Constructs a Sale object with an integration instance.
@@ -40,7 +39,6 @@ public class Sale {
         itemsFinal = null;
         saleEnded = false;
         this.dbHandler = dbHandler;
-        this.exceptionLogger = exceptionLogger;
     }
 
     /**
