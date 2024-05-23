@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import se.kth.salesystem.database.PseudoDB;
 import se.kth.salesystem.integration.DBHandler;
+import se.kth.salesystem.integration.DatabaseNotFoundException;
+import se.kth.salesystem.integration.ItemNotFoundException;
 import se.kth.salesystem.integration.Printer;
 import se.kth.salesystem.integration.SaleDTO;
 import se.kth.salesystem.model.ExceptionFileOutput;
@@ -51,7 +53,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void scanItemTest() throws SaleStateException{
+    public void scanItemTest() throws SaleStateException, DatabaseNotFoundException, ItemNotFoundException{
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -64,7 +66,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void finalizeSaleTest() throws SaleStateException {
+    public void finalizeSaleTest() throws SaleStateException, DatabaseNotFoundException, ItemNotFoundException {
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -80,7 +82,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void resetSaleTest() throws SaleStateException{
+    public void resetSaleTest() throws SaleStateException, DatabaseNotFoundException, ItemNotFoundException{
         controller.startSale();
         controller.scanItem(2, 1);
         controller.scanItem(0, 2);
@@ -92,26 +94,38 @@ public class ControllerTest {
         assertEquals("Current sale not nullified after reset", true, testBool);
     }
 
-    @Test(expected = SaleStateException.class)
-    public void finalizeUnendedSaleTest() throws SaleStateException{
-        controller.startSale();
-        controller.scanItem(0, 1);
-        controller.finalizeSale(100);
-        assertFalse("Did not throw SaleStateException", true);
+    @Test
+    public void finalizeUnendedSaleTest() throws DatabaseNotFoundException, ItemNotFoundException{
+        try {
+            controller.startSale();
+            controller.scanItem(0, 1);
+            controller.finalizeSale(100);
+            assertFalse("Did not throw SaleStateException", true);
+        } catch (SaleStateException e) {
+            assertTrue(true);
+        }
     }
 
-    @Test(expected = SaleStateException.class)
-    public void addingItemToEndedSale() throws SaleStateException{
-        controller.startSale();
-        controller.endCurrentSale();
-        controller.scanItem(0, 1);
-        assertFalse("Did not throw SaleStateException", true);
+    @Test
+    public void addingItemToEndedSale() throws DatabaseNotFoundException, ItemNotFoundException{
+        try {
+            controller.startSale();
+            controller.endCurrentSale();
+            controller.scanItem(0, 1);
+            assertFalse("Did not throw SaleStateException", true);
+        } catch (SaleStateException e) {
+            assertTrue(true);
+        }
     }
 
-    @Test(expected = SaleStateException.class)
-    public void addingItemToNonStartedSale() throws SaleStateException{
-        controller.scanItem(0, 1);
-        assertFalse("Did not throw SaleStateException", true);
+    @Test
+    public void addingItemToNonStartedSale() throws DatabaseNotFoundException, ItemNotFoundException{
+        try {
+            controller.scanItem(0, 1);
+            assertFalse("Did not throw SaleStateException", true);
+        } catch (SaleStateException e) {
+            assertTrue(true);
+        }
     }
 
     @Test
@@ -121,7 +135,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void discountTest() throws SaleStateException{
+    public void discountTest() throws SaleStateException, DatabaseNotFoundException, ItemNotFoundException{
         controller.startSale();
         controller.scanItem(0, 1);
         controller.scanItem(1, 3);

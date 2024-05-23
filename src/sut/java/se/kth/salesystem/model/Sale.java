@@ -51,24 +51,16 @@ public class Sale {
      * @param id the id of the item to be added
      * @param quantity the quantity of the item to be added
      */
-    public void addItem(int id, int quantity){
-        try{
-            Item item = fetchFromItemsInSale(id);
-            if(item != null){
-                item.addQuantity(quantity);
-            } else {
-                ItemDTO itemDTO = dbHandler.fetchItem(id);
-                item = new Item(itemDTO, quantity);
-                items.add(item);
-            }
-            recalculateCost();
-        } catch (ItemNotFoundException exception){
-            System.out.println(exception.getMessage());
-            exceptionLogger.logMessage(exception.getMessage());
-        } catch (DatabaseNotFoundException exception){
-            System.out.println(exception.getMessage());
-            exceptionLogger.logMessage(exception.getMessage());
+    public void addItem(int id, int quantity) throws ItemNotFoundException, DatabaseNotFoundException {
+        Item item = fetchFromItemsInSale(id);
+        if (item != null) {
+            item.addQuantity(quantity);
+        } else {
+            ItemDTO itemDTO = dbHandler.fetchItem(id);
+            item = new Item(itemDTO, quantity);
+            items.add(item);
         }
+        recalculateCost();
     }
 
     // Recalculates the total cost and total VAT of the sale based on its items.

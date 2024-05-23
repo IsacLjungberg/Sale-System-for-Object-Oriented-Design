@@ -1,12 +1,14 @@
 package se.kth.salesystem.controller;
 
 import se.kth.salesystem.integration.DBHandler;
+import se.kth.salesystem.integration.DatabaseNotFoundException;
 import se.kth.salesystem.integration.Printer;
 import se.kth.salesystem.integration.SaleDTO;
 import se.kth.salesystem.model.ExceptionFileOutput;
 import se.kth.salesystem.model.Sale;
 import se.kth.salesystem.model.SaleStateException;
 import se.kth.salesystem.integration.Discount;
+import se.kth.salesystem.integration.ItemNotFoundException;
 
 /**
  * Controller class responsible for managing sale transactions.
@@ -47,7 +49,7 @@ public class Controller {
      * @return SaleDTO representing the current sale
      * @throws SaleStateException 
      */
-    public SaleDTO scanItem(int id, int quantity) throws SaleStateException {
+    public SaleDTO scanItem(int id, int quantity) throws DatabaseNotFoundException, ItemNotFoundException, SaleStateException {
         if(currentSale != null){
             if(!currentSale.getSaleEnded()){
                 if (quantity > 0) {

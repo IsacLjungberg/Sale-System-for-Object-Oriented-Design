@@ -110,15 +110,27 @@ public class DBHandlerTest {
         assertEquals("Observe does not write to file correctly", true, testBool);
     }
 
-    @Test(expected = DatabaseNotFoundException.class)
-    public void DatabaseNotFoundExceptionTest() throws ItemNotFoundException, DatabaseNotFoundException {
-        dbHandler.fetchItem(404);
-        assertFalse("Did not throw DatabaseNotFoundException", true);
+    @Test
+    public void DatabaseNotFoundExceptionTest() {
+        try {
+            dbHandler.fetchItem(404);
+            assertFalse("Did not throw DatabaseNotFoundException", true);
+        } catch (DatabaseNotFoundException e) {
+            assertTrue(true);
+        } catch (ItemNotFoundException e) {
+            assertFalse("Did not throw DatabaseNotFoundException", true);
+        }
     }
 
-    @Test(expected = ItemNotFoundException.class)
-    public void itemNotFoundExceptionTest() throws ItemNotFoundException, DatabaseNotFoundException {
-        dbHandler.fetchItem(68);
-        assertFalse("Did not throw ItemNotFoundException", true);
+    @Test
+    public void itemNotFoundExceptionTest() {
+        try {
+            dbHandler.fetchItem(68);
+            assertFalse("Did not throw ItemNotFoundException", true);
+        } catch (ItemNotFoundException e) {
+            assertTrue(true);
+        } catch (DatabaseNotFoundException e){
+            assertFalse("Did not throw ItemNotFoundException", true);
+        }
     }
 }
