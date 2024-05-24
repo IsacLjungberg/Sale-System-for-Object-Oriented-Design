@@ -113,7 +113,7 @@ public class View{
         controller.startSale();
     }
 
-    private SaleDTO scanItem(int id, int quantity){
+    public SaleDTO scanItem(int id, int quantity){
         try {
             return controller.scanItem(id, quantity);
         } catch (ItemNotFoundException e) {
