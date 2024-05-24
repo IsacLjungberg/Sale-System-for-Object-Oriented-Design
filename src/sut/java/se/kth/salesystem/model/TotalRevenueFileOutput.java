@@ -5,14 +5,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import se.kth.salesystem.integration.Observer;
+import se.kth.salesystem.integration.ObserverTemplate;
 
 
 /**
  * The TotalRevenueFileOutput class is responsible for logging the total revenue to a file.
  * It implements the Observer interface to receive updates on the total revenue.
  */
-public class TotalRevenueFileOutput implements Observer {
+public class TotalRevenueFileOutput extends ObserverTemplate {
     private static TotalRevenueFileOutput instance = null;
 
     private static final String LOG_FILE = "Revenue_log.txt";
@@ -55,14 +55,15 @@ public class TotalRevenueFileOutput implements Observer {
         writer.println("[" + timeStamp + "] " + message);
     }
 
-    /**
-     * Updates the log with the new total revenue.
-     *
-     * @param totalAmount The new total revenue to be logged.
-     */
-    @Override
-    public void update(double totalAmount) {
-        logMessage("Total revenue: " + Double.toString(totalAmount));
-    }
+	@Override
+	protected void doShowTotalRevenue (double totalRevenue) throws Exception {
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        writer.println("[" + timeStamp + "]" + "Total revenue: " + Double.toString(totalRevenue));
+	}
+
+	@Override
+	protected void handleErrors(Exception e) {
+		System.out.println("Error " + e.getMessage());
+	}
 }
 

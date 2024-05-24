@@ -1,12 +1,12 @@
 package se.kth.salesystem.view;
 
-import se.kth.salesystem.integration.Observer;
+import se.kth.salesystem.integration.ObserverTemplate;
 
 /**
  * The TotalRevenueView class is responsible for displaying the total revenue.
  * It implements the Observer interface to receive updates on the total amount.
  */
-public class TotalRevenueView implements Observer {
+public class TotalRevenueView extends ObserverTemplate {
 
     /**
      * Constructor for the TotalRevenueView class.
@@ -14,14 +14,14 @@ public class TotalRevenueView implements Observer {
      */
     public TotalRevenueView() {}
 
-    /**
-     * Updates the view with the new total amount.
-     *
-     * @param totalAmount The new total amount to be displayed.
-     */
     @Override
-    public void update(double totalAmount) {
-        System.out.printf("Total paid amount: %,.2f \n\n", totalAmount);
+    protected void doShowTotalRevenue(double totalRevenue) throws Exception {
+        System.out.println("Total Revenue: " + totalRevenue);
+    }
+
+    @Override
+    protected void handleErrors(Exception e) {
+        System.out.println("Error " + e.getMessage());
     }
 }
 
