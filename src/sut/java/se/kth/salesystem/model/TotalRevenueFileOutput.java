@@ -61,7 +61,6 @@ public class TotalRevenueFileOutput extends ObserverTemplate {
 	}
 
 	protected void handleErrors(Exception e) {
-        System.out.println("Error when writing total revenue to logger");
 		StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         ExceptionFileOutput.getInstance().logMessage(sw.toString());
