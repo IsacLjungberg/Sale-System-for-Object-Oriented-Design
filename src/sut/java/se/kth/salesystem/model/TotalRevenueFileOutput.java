@@ -3,6 +3,7 @@ package se.kth.salesystem.model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import se.kth.salesystem.integration.ObserverTemplate;
@@ -26,8 +27,7 @@ public class TotalRevenueFileOutput extends ObserverTemplate {
         try {
             writer = new PrintWriter(new FileWriter(LOG_FILE), true);
         } catch (IOException e) {
-            System.out.println("Revenue logger not working");
-            e.printStackTrace();
+            handleErrors(e);
         }
     }
 
@@ -55,15 +55,16 @@ public class TotalRevenueFileOutput extends ObserverTemplate {
         writer.println("[" + timeStamp + "] " + message);
     }
 
-	@Override
 	protected void doShowTotalRevenue (double totalRevenue) throws Exception {
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         writer.println("[" + timeStamp + "]" + "Total revenue: " + Double.toString(totalRevenue));
 	}
 
-	@Override
 	protected void handleErrors(Exception e) {
-		System.out.println("Error " + e.getMessage());
+        System.out.println("Error when writing total revenue to logger");
+		StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        ExceptionFileOutput.getInstance().logMessage(sw.toString());
 	}
 }
 

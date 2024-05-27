@@ -1,6 +1,10 @@
 package se.kth.salesystem.view;
 
+import java.io.StringWriter;
+import java.io.PrintWriter;
+
 import se.kth.salesystem.integration.ObserverTemplate;
+import se.kth.salesystem.model.ExceptionFileOutput;
 
 /**
  * The TotalRevenueView class is responsible for displaying the total revenue.
@@ -21,7 +25,10 @@ public class TotalRevenueView extends ObserverTemplate {
 
     @Override
     protected void handleErrors(Exception e) {
-        System.out.println("Error " + e.getMessage());
+        System.out.println("Error when writing total revenue");
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        ExceptionFileOutput.getInstance().logMessage(sw.toString());
     }
 }
 
