@@ -1,7 +1,5 @@
 package se.kth.notsalesystem;
 
-import java.util.Random;
-
 /**
  * Main class contains the main method to start the program.
  */
