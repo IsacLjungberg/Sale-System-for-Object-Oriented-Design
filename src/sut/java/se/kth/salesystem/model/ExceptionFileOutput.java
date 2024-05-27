@@ -18,14 +18,10 @@ public class ExceptionFileOutput {
     /**
      * Constructor for the ExceptionFileOutput class.
      * Initializes the PrintWriter object to write to the log file.
+     * @throws IOException 
      */
-    private ExceptionFileOutput() {
-        try {
-            writer = new PrintWriter(new FileWriter(LOG_FILE), true);
-        } catch (IOException e) {
-            System.out.println("Exception logger not working");
-            e.printStackTrace();
-        }
+    private ExceptionFileOutput() throws IOException {
+        writer = new PrintWriter(new FileWriter(LOG_FILE), true);
     }
 
     /**
@@ -36,7 +32,11 @@ public class ExceptionFileOutput {
      */
     public static ExceptionFileOutput getInstance(){
         if (instance == null) {
-            instance = new ExceptionFileOutput();
+            try {
+                instance = new ExceptionFileOutput();
+            } catch (Exception e) {
+                return null;
+            }
         }
 
         return instance;
