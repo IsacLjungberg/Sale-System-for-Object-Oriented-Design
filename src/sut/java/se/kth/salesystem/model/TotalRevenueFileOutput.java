@@ -3,6 +3,7 @@ package se.kth.salesystem.model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import se.kth.salesystem.integration.Observer;
@@ -26,8 +27,9 @@ public class TotalRevenueFileOutput implements Observer {
         try {
             writer = new PrintWriter(new FileWriter(LOG_FILE), true);
         } catch (IOException e) {
-            System.out.println("Revenue logger not working");
-            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            ExceptionFileOutput.getInstance().logMessage(sw.toString());
         }
     }
 

@@ -23,13 +23,15 @@ public class Printer {
         System.out.println("---------------------------- Begin Receipt ----------------------------");
         System.out.println("Time of sale: " + saleDTO.getDateAndTime());
         System.out.println();
+
         for (ItemDTO itemDTO : saleDTO.getItemDTOs()) {
-            System.out.print(itemDTO.getName() + "\t");
-            System.out.print(itemDTO.getQuantity() + " x ");
-            System.out.print(itemDTO.getPrice() + " SEK\t");
-            System.out.print(itemDTO.getQuantity() * itemDTO.getPrice() + " SEK\t");
-            System.out.println(itemDTO.getVatRate() + " %VAT");
+            System.out.printf("%s\t", itemDTO.getName());
+            System.out.printf("%d x ", itemDTO.getQuantity());
+            System.out.printf("%.2f SEK\t", itemDTO.getPrice());
+            System.out.printf("%.2f SEK\t", itemDTO.getQuantity() * itemDTO.getPrice());
+            System.out.printf("%.2f %%VAT\n", itemDTO.getVatRate());
         }
+        
         System.out.println();
         System.out.printf("Total: \t\t%,.2f SEK\n", saleDTO.getTotalCost());
         System.out.printf("VAT: \t\t%,.2f SEK\n",saleDTO.getTotalVat());

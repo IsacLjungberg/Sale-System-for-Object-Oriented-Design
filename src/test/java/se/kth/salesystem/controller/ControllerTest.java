@@ -30,6 +30,7 @@ public class ControllerTest {
     @Before
     public void setUp() {
         db = PseudoDB.getInstance();
+        db.resetDatabase();
         dbHandler = new DBHandler(db);
         exceptionLogger = ExceptionFileOutput.getInstance();
         printer = new Printer();

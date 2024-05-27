@@ -1,0 +1,5 @@
+[2024-05-27 16:43:56] java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because "noInteger" is null
+	at se.kth.salesystem.view.View.thirdExampleFlow(View.java:108)
+	at se.kth.salesystem.view.View.runExampleFlows(View.java:49)
+	at se.kth.salesystem.startup.Main.main(Main.java:34)
+

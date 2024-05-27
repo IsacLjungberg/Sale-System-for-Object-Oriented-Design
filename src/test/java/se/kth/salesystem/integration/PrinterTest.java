@@ -4,9 +4,7 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import se.kth.salesystem.controller.Controller;
 import se.kth.salesystem.database.PseudoDB;
-import se.kth.salesystem.model.ExceptionFileOutput;
 import se.kth.salesystem.model.SaleStateException;
 import se.kth.salesystem.model.TotalRevenueFileOutput;
 import se.kth.salesystem.view.TotalRevenueView;
@@ -17,7 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class PrinterTest {
-
     ByteArrayOutputStream outputToStream;
     PrintStream origOut = System.out;
     Printer printer;
@@ -26,7 +23,6 @@ public class PrinterTest {
     public void setUp(){
         DBHandler dbHandler = new DBHandler(PseudoDB.getInstance());
         printer = new Printer();
-        ExceptionFileOutput exceptionLogger = ExceptionFileOutput.getInstance();
         TotalRevenueFileOutput revenueLogger = TotalRevenueFileOutput.getInstance();
         TotalRevenueView totalRevView = new TotalRevenueView();
         outputToStream = new ByteArrayOutputStream();
@@ -53,6 +49,16 @@ public class PrinterTest {
 
         String testOutput = outputToStream.toString();
 
-        assertTrue("AAAAAA " + testOutput, false);
+        String[] parsed = testOutput.split("\n");
+        Boolean testBool = 
+        parsed[3].contains("Mjölk") &&
+        parsed[3].split("Mjölk")[1].contains("10 x 100,00 SEK") &&
+        parsed[3].split("10 x 100,00 SEK")[1].contains("1000,00 SEK") &&
+        parsed[3].split("1000,00 SEK")[1].contains("6,00 %VAT") &&
+        parsed[6].contains("100,00 SEK") &&
+        parsed[7].contains("100,00 SEK") &&
+        parsed[8].contains("100,00 SEK");
+
+        assertTrue("Printer output is incorrect ", testBool);
     }
 }
