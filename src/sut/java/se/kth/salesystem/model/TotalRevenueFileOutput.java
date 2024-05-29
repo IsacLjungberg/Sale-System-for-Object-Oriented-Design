@@ -45,16 +45,6 @@ public class TotalRevenueFileOutput extends ObserverTemplate {
         return instance;
     }
 
-    /**
-     * Logs a message to the log file with a timestamp.
-     *
-     * @param message The message to be logged.
-     */
-    public void logMessage(String message) {
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        writer.println("[" + timeStamp + "] " + message);
-    }
-
 	protected void doShowTotalRevenue (double totalRevenue) throws Exception {
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         writer.println("[" + timeStamp + "]" + "Total revenue: " + Double.toString(totalRevenue));
